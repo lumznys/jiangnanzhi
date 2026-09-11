@@ -1,0 +1,39 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/reference.css';
+import '../styles/site.css';
+interface Props { title: string; description: string; schema?: Record<string, unknown>; noindex?: boolean; }
+const {title, description, schema, noindex=false} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site || 'https://www.jiangnantea.com');
+const organization = {'@context':'https://schema.org','@type':'Organization','@id':'https://www.jiangnantea.com/#organization',name:'江南枝',url:'https://www.jiangnantea.com',logo:'https://www.jiangnantea.com/favicon.ico',description:'江南枝是漳州青野逐光文化发展有限公司旗下的茶叶品牌，秉持「守一枝茶香，归一味本真」的理念。',slogan:'江南有枝，静候知音',telephone:'400-950-9600',email:'qingyezhuguang@163.com',parentOrganization:{'@type':'Organization',name:'漳州青野逐光文化发展有限公司'}};
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex?'noindex, follow':'index, follow'} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta property="og:type" content={schema?.['@type']==='Article'?'article':'website'} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="江南枝" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <script type="application/ld+json" set:html={JSON.stringify(organization).replace(/</g,'\\u003c')} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g,'\\u003c')} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳转到正文</a>
+    <div class="flex flex-col min-h-screen">
+      <SiteHeader />
+      <main id="main-content" class="flex-1"><slot /></main>
+      <SiteFooter />
+    </div>
+    <script src="../scripts/site.ts"></script>
+  </body>
+</html>

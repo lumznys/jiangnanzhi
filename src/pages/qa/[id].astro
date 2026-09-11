@@ -1,0 +1,16 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import content from '../../data/content.json';
+export function getStaticPaths(){return content.qa.map(article=>({params:{id:String(article.id)},props:{article}}));}
+const {article}=Astro.props;
+const schema={'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.content.slice(0,150),datePublished:article.date,author:{'@type':'Organization',name:'江南枝'},publisher:{'@id':'https://www.jiangnantea.com/#organization'},mainEntityOfPage:new URL(Astro.url.pathname,Astro.site).href};
+---
+<SiteLayout title={`${article.title} — 江南枝`} description={article.content.slice(0,150)} schema={schema}>
+  <article class="pt-32 pb-20 bg-background"><div class="max-w-4xl mx-auto px-6 lg:px-8">
+    <a href="/qa" class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors duration-300 mb-8">← 返回Q&A</a>
+    <div class="flex items-center gap-3 mb-4"><span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">{article.category}</span><time class="text-sm text-muted-foreground" datetime={article.date}>{article.date}</time></div>
+    <h1 class="font-serif text-3xl lg:text-4xl font-bold text-foreground mb-10 leading-tight">{article.title}</h1>
+    <div class="max-w-none">{article.content.split('\n\n').map(paragraph=> /^[一二三四五六七八九十]+、/.test(paragraph)?<h2 class="font-serif text-2xl lg:text-3xl font-bold text-foreground mt-12 mb-6">{paragraph}</h2>:<p class:list={['article-text mb-6 text-base lg:text-lg',paragraph.startsWith('——')?'text-muted-foreground italic text-right':paragraph==='守一枝茶香，归一味本真。'?'text-primary font-serif text-xl lg:text-2xl font-semibold text-center my-8':'text-foreground font-normal']}>{paragraph}</p>)}</div>
+    <div class="mt-16 pt-8 border-t border-border/50"><h3 class="font-serif text-xl font-bold text-foreground mb-4">还有其他问题？</h3><p class="text-muted-foreground mb-6">欢迎浏览更多Q&A文章，或联系我们获取更多帮助。</p><div class="flex flex-wrap gap-4"><a href="/qa" class="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-secondary-foreground rounded-md">← 返回Q&A列表</a><a href="/contact" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-md">联系我们 →</a></div></div>
+  </div></article>
+</SiteLayout>

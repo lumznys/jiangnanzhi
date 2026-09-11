@@ -1,0 +1,154 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import content from '../data/content.json';
+const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: content.qaList.filter(item => item.category === '常见问题').map(item => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
+---
+<SiteLayout schema={schema} title="常见问题 - 江南枝" description="江南枝常见问题解答，了解我们的品牌故事、茶叶产地、冲泡方法及企业动态。">
+<section class="pt-32 pb-16 bg-secondary text-center">
+<div class="max-w-3xl mx-auto px-6">
+<div class="" data-reveal="" data-delay="0">
+<h1 class="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">常见问题</h1>
+<p class="text-muted-foreground text-lg">了解江南枝品牌故事、茶叶产地、冲泡方法及企业动态</p>
+</div>
+</div>
+</section>
+<section class="py-16 bg-background">
+<div class="max-w-4xl mx-auto px-6 lg:px-8">
+<div class="" data-reveal="" data-delay="0">
+<div class="flex flex-wrap gap-3 mb-12 justify-center">
+<button type="button" data-filter class="px-5 py-2 rounded-md text-sm font-medium transition-all duration-300 bg-primary text-primary-foreground">全部</button>
+<button type="button" data-filter class="px-5 py-2 rounded-md text-sm font-medium transition-all duration-300 bg-secondary text-secondary-foreground hover:bg-secondary/80">常见问题</button>
+<button type="button" data-filter class="px-5 py-2 rounded-md text-sm font-medium transition-all duration-300 bg-secondary text-secondary-foreground hover:bg-secondary/80">企业动态</button>
+</div>
+</div>
+<div class="space-y-4">
+<div class="" data-reveal="" data-delay="0">
+<div class="bg-secondary rounded-lg overflow-hidden">
+<a class="block p-6 hover:bg-secondary/80 transition-colors duration-300" href="/qa/5" data-category="品牌故事">
+<div class="flex items-center gap-3 mb-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
+<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
+<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
+</path>
+</svg>品牌故事</span>
+<span class="inline-flex items-center gap-1 text-sm text-muted-foreground">
+<svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
+<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
+</path>
+</svg>2026-08-13</span>
+</div>
+<h3 class="font-serif text-lg lg:text-xl font-semibold text-foreground mb-2">中国已经不缺茶叶了，为什么我们还要做一个&quot;江南枝&quot;？</h3>
+<p class="text-muted-foreground text-sm line-clamp-2">中国从来不缺好茶，但缺的是对品质的坚守、对文化的传承、对消费者的真诚。江南枝的创立，源于我们对传统茶文化的敬意，以及对现代茶饮体验的思考。我们希望让茶重新回到茶本身，少一点噱头，多一点对茶本身的关注。守一枝茶香，归一味本真。</p>
+<span class="inline-flex items-center gap-1 mt-3 text-primary text-sm font-medium">阅读全文 →</span>
+</a>
+</div>
+</div>
+<div class="" data-reveal="" data-delay="50">
+<div class="bg-secondary rounded-lg overflow-hidden">
+<a class="block p-6 hover:bg-secondary/80 transition-colors duration-300" href="/qa/1" data-category="常见问题">
+<div class="flex items-center gap-3 mb-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
+<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
+<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
+</path>
+</svg>常见问题</span>
+<span class="inline-flex items-center gap-1 text-sm text-muted-foreground">
+<svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
+<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
+</path>
+</svg>2026-08-25</span>
+</div>
+<h3 class="font-serif text-lg lg:text-xl font-semibold text-foreground mb-2">江南枝的茶叶都是从哪里来的？</h3>
+<p class="text-muted-foreground text-sm line-clamp-2">江南枝的茶叶均来自国内优质原产地，我们与当地茶农建立了长期稳定的合作关系。主要产地包括：福建武夷山（武夷岩茶、正山小种）、浙江杭州（西湖龙井）、福建福鼎（福鼎白茶）、安徽黄山（黄山毛峰、祁门红茶）、云南西双版纳（普洱茶）。我们坚持原产地直供，每一批茶叶都经过严格的品质审核和农残检测，确保茶叶的品质和安全。</p>
+<span class="inline-flex items-center gap-1 mt-3 text-primary text-sm font-medium">阅读全文 →</span>
+</a>
+</div>
+</div>
+<div class="" data-reveal="" data-delay="100">
+<div class="bg-secondary rounded-lg overflow-hidden">
+<a class="block p-6 hover:bg-secondary/80 transition-colors duration-300" href="/qa/2" data-category="常见问题">
+<div class="flex items-center gap-3 mb-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
+<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
+<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
+</path>
+</svg>常见问题</span>
+<span class="inline-flex items-center gap-1 text-sm text-muted-foreground">
+<svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
+<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
+</path>
+</svg>2026-08-22</span>
+</div>
+<h3 class="font-serif text-lg lg:text-xl font-semibold text-foreground mb-2">你们的产品价格为什么比市面上便宜？</h3>
+<p class="text-muted-foreground text-sm line-clamp-2">江南枝的价格优势来自于我们的经营模式：1. 原产地直供，省去中间商环节；2. 精简包装，将成本投入到茶叶品质本身；3. 线上为主，减少门店租金和人工成本；4. 薄利多销，让更多人喝到真正的好茶。我们相信，好茶不应该贵得离谱，江南枝致力于让每一杯茶都物有所值。</p>
+<span class="inline-flex items-center gap-1 mt-3 text-primary text-sm font-medium">阅读全文 →</span>
+</a>
+</div>
+</div>
+<div class="" data-reveal="" data-delay="150">
+<div class="bg-secondary rounded-lg overflow-hidden">
+<a class="block p-6 hover:bg-secondary/80 transition-colors duration-300" href="/qa/3" data-category="常见问题">
+<div class="flex items-center gap-3 mb-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
+<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
+<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
+</path>
+</svg>常见问题</span>
+<span class="inline-flex items-center gap-1 text-sm text-muted-foreground">
+<svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
+<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
+</path>
+</svg>2026-08-19</span>
+</div>
+<h3 class="font-serif text-lg lg:text-xl font-semibold text-foreground mb-2">茶叶收到后如何保存？</h3>
+<p class="text-muted-foreground text-sm line-clamp-2">茶叶的保存方法因茶类而异：绿茶建议冷藏保存（0-5°C），密封后放入冰箱冷藏室；白茶常温密封保存即可，避光防潮防异味；红茶常温密封保存，避光防潮；乌龙茶清香型建议冷藏，浓香型和岩茶常温密封保存；普洱茶需要通风、干燥、无异味的环境。通用原则：密封、避光、防潮、防异味、分装。</p>
+<span class="inline-flex items-center gap-1 mt-3 text-primary text-sm font-medium">阅读全文 →</span>
+</a>
+</div>
+</div>
+<div class="" data-reveal="" data-delay="200">
+<div class="bg-secondary rounded-lg overflow-hidden">
+<a class="block p-6 hover:bg-secondary/80 transition-colors duration-300" href="/qa/4" data-category="常见问题">
+<div class="flex items-center gap-3 mb-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
+<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
+<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
+</path>
+</svg>常见问题</span>
+<span class="inline-flex items-center gap-1 text-sm text-muted-foreground">
+<svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
+<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
+</path>
+</svg>2026-08-16</span>
+</div>
+<h3 class="font-serif text-lg lg:text-xl font-semibold text-foreground mb-2">如何正确冲泡绿茶？</h3>
+<p class="text-muted-foreground text-sm line-clamp-2">绿茶冲泡建议使用80-85°C的水温，避免沸水直接冲泡。投茶量约3-5克，第一泡可快速出汤洗茶，后续每泡浸泡时间逐渐延长。使用玻璃杯或白瓷盖碗最佳，可欣赏茶叶舒展的姿态。</p>
+<span class="inline-flex items-center gap-1 mt-3 text-primary text-sm font-medium">阅读全文 →</span>
+</a>
+</div>
+</div>
+<div class="" data-reveal="" data-delay="250">
+<div class="bg-secondary rounded-lg overflow-hidden">
+<a class="block p-6 hover:bg-secondary/80 transition-colors duration-300" href="/qa/6" data-category="企业动态">
+<div class="flex items-center gap-3 mb-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
+<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
+<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
+</path>
+</svg>企业动态</span>
+<span class="inline-flex items-center gap-1 text-sm text-muted-foreground">
+<svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
+<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
+</path>
+</svg>2026-08-10</span>
+</div>
+<h3 class="font-serif text-lg lg:text-xl font-semibold text-foreground mb-2">江南枝参加2026年春季茶博会</h3>
+<p class="text-muted-foreground text-sm line-clamp-2">2026年春季，江南枝受邀参加在杭州国际博览中心举办的中国（杭州）国际茶叶博览会。本次茶博会上，江南枝携旗下核心产品亮相，包括武夷岩茶系列、绿茶系列、白茶系列。展会期间，江南枝展位吸引了大量茶友前来品鉴交流。此次参展不仅展示了江南枝的品牌理念和产品品质，也让我们听到了来自全国各地茶友的真实反馈。</p>
+<span class="inline-flex items-center gap-1 mt-3 text-primary text-sm font-medium">阅读全文 →</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</SiteLayout>

@@ -1,0 +1,25 @@
+---
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const home = pathname === '/';
+const links = [['官网首页','/'],['产品系列','/products'],['茶叶科普','/tea-knowledge'],['Q&A','/qa'],['关于我们','/about'],['联系我们','/contact']];
+---
+<header id="site-header" class:list={['site-header fixed top-0 left-0 right-0 z-50 transition-all duration-400', { 'is-home':home }]}>
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      <a href="/" aria-label="江南枝首页"><img src="/images/64121b1e-297c-4f83-9ff0-e22c6c71adca-347ad2a5.png" alt="江南枝" class="h-8 lg:h-10 w-auto" /></a>
+      <nav class="hidden lg:flex items-center gap-8" aria-label="主导航">
+        {links.map(([label,href]) => <a href={href} class="nav-link relative text-sm tracking-wide transition-colors duration-300" aria-current={pathname===href?'page':undefined}>{label}</a>)}
+        <a href="/contact" class="consult-link ml-4 px-5 py-2 text-sm rounded-md transition-colors duration-300">立即咨询</a>
+      </nav>
+      <button id="menu-toggle" class="lg:hidden p-2" type="button" aria-label="打开导航菜单" aria-controls="mobile-menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z" /></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="lg:hidden" hidden>
+    <nav class="flex flex-col px-6 py-4 gap-4 border-t" aria-label="移动导航">
+      {links.map(([label,href]) => <a href={href} class="nav-link text-base py-2" aria-current={pathname===href?'page':undefined}>{label}</a>)}
+      <a href="tel:4009509600" class="consult-link mt-2 px-5 py-2.5 text-center text-sm rounded-md">立即咨询</a>
+    </nav>
+  </div>
+</header>
