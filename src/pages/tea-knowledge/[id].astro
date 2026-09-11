@@ -3,7 +3,17 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 import content from '../../data/content.json';
 export function getStaticPaths(){return content.tea.map(article=>({params:{id:String(article.id)},props:{article}}));}
 const {article}=Astro.props;
-const schema={'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.excerpt,datePublished:article.date,author:{'@type':'Organization',name:'江南枝'},publisher:{'@id':'https://www.jiangnantea.com/#organization'},mainEntityOfPage:new URL(Astro.url.pathname,Astro.site).href};
+const canonical = new URL(Astro.url.pathname, 'https://www.jiangnantea.com').href;
+const schema={'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.excerpt,datePublished:article.date,author:{'@id':'https://www.jiangnantea.com/#organization'},publisher:{'@id':'https://www.jiangnantea.com/#organization'},mainEntityOfPage:canonical};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首页', item: 'https://www.jiangnantea.com/' },
+    { '@type': 'ListItem', position: 2, name: '茶叶科普', item: 'https://www.jiangnantea.com/tea-knowledge/' },
+    { '@type': 'ListItem', position: 3, name: article.title, item: canonical },
+  ],
+};
 ---
 <SiteLayout title={`${article.title} — 江南枝`} description={article.excerpt} schema={schema}>
   <article class="pt-32 pb-20 bg-background">
@@ -16,4 +26,5 @@ const schema={'@context':'https://schema.org','@type':'Article',headline:article
       <div class="mt-16 pt-8 border-t border-border/50"><h3 class="font-serif text-xl font-bold text-foreground mb-4">想了解更多茶叶知识？</h3><p class="text-muted-foreground mb-6">关注「江南枝茶业」公众号，获取更多茶叶科普文章和品牌动态。</p><div class="flex flex-wrap gap-4"><a href="/tea-knowledge" class="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors duration-300">← 返回文章列表</a><a href="/contact" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors duration-300">联系我们 →</a></div></div>
     </div>
   </article>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema).replace(/</g, '\u003c')} />
 </SiteLayout>

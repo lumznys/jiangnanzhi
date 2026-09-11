@@ -5,8 +5,22 @@ import '../styles/reference.css';
 import '../styles/site.css';
 interface Props { title: string; description: string; schema?: Record<string, unknown>; noindex?: boolean; }
 const {title, description, schema, noindex=false} = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site || 'https://www.jiangnantea.com');
-const organization = {'@context':'https://schema.org','@type':'Organization','@id':'https://www.jiangnantea.com/#organization',name:'江南枝',url:'https://www.jiangnantea.com',logo:'https://www.jiangnantea.com/favicon.ico',description:'江南枝是漳州青野逐光文化发展有限公司旗下的茶叶品牌，秉持「守一枝茶香，归一味本真」的理念。',slogan:'江南有枝，静候知音',telephone:'400-950-9600',email:'qingyezhuguang@163.com',parentOrganization:{'@type':'Organization',name:'漳州青野逐光文化发展有限公司'}};
+const canonical = new URL(Astro.url.pathname, 'https://www.jiangnantea.com');
+const organization = {'@type':'Organization','@id':'https://www.jiangnantea.com/#organization',name:'江南枝',url:'https://www.jiangnantea.com',logo:'https://www.jiangnantea.com/favicon.ico',description:'江南枝是漳州青野逐光文化发展有限公司旗下的茶叶品牌，秉持「守一枝茶香，归一味本真」的理念。',slogan:'江南有枝，静候知音',telephone:'400-950-9600',email:'qingyezhuguang@163.com',parentOrganization:{'@type':'Organization',name:'漳州青野逐光文化发展有限公司'}};
+const siteSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organization,
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.jiangnantea.com/#website',
+      url: 'https://www.jiangnantea.com/',
+      name: '江南枝',
+      inLanguage: 'zh-CN',
+      publisher: { '@id': 'https://www.jiangnantea.com/#organization' },
+    },
+  ],
+};
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -24,7 +38,7 @@ const organization = {'@context':'https://schema.org','@type':'Organization','@i
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <script type="application/ld+json" set:html={JSON.stringify(organization).replace(/</g,'\\u003c')} />
+    <script type="application/ld+json" set:html={JSON.stringify(siteSchema).replace(/</g,'\\u003c')} />
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g,'\\u003c')} />}
   </head>
   <body>

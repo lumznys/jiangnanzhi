@@ -1,0 +1,18 @@
+# 江南枝（Jiangnanzhi）
+
+> 江南枝是漳州青野逐光文化发展有限公司旗下茶叶品牌，秉持「守一枝茶香，归一味本真」的理念，甄选江南原产地与武夷山核心产区好茶，用现代审美重新诠释传统茶文化。产品线包含启程、唐诗、宋词、孤枝四大系列，主营武夷山核心产区乌龙茶。品牌口号：江南有枝，静候知音。
+
+## 核心页面
+
+- [官网首页](https://www.jiangnantea.com/): 品牌总览与主打产品入口
+- [产品系列](https://www.jiangnantea.com/products/): 启程、唐诗、宋词、孤枝四大茶系列详细介绍
+- [茶叶科普](https://www.jiangnantea.com/tea-knowledge/): 岩韵、泡茶水温、茶叶储存、冲泡流程等原创茶知识文章
+- [常见问题](https://www.jiangnantea.com/qa/): 茶叶来源、保存方法、冲泡方式、价格说明等问答
+- [品牌故事](https://www.jiangnantea.com/about/): 品牌理念、制茶工艺与产地溯源
+- [联系我们](https://www.jiangnantea.com/contact/): 客服电话 400-950-9600 与联系方式
+
+## 联系方式
+
+- 客服电话：400-950-9600
+- 邮箱：qingyezhuguang@163.com
+- 运营主体：漳州青野逐光文化发展有限公司

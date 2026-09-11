@@ -1,5 +1,32 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import content from '../data/content.json';
+
+// Keep product facts aligned with the existing cards and brand's stated craft.
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@graph': content.products.map((product) => ({
+    '@type': 'Product',
+    name: product.name,
+    image: new URL(product.image, 'https://www.jiangnantea.com').href,
+    description: `产自${product.origin}的乌龙茶。${product.flavor}`,
+    brand: { '@id': 'https://www.jiangnantea.com/#organization' },
+    additionalProperty: [
+      { '@type': 'PropertyValue', propertyID: 'origin', name: '产地', value: product.origin },
+      { '@type': 'PropertyValue', propertyID: 'teaType', name: '茶类', value: '乌龙茶' },
+      { '@type': 'PropertyValue', propertyID: 'process', name: '工艺', value: '传统乌龙茶制作技艺，看青做青、文火慢炖' },
+    ],
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首页', item: 'https://www.jiangnantea.com/' },
+    { '@type': 'ListItem', position: 2, name: '产品系列', item: 'https://www.jiangnantea.com/products/' },
+  ],
+};
 ---
 <SiteLayout title="江南枝茶系列 - 江南枝" description="江南枝茶系列是品牌产品线总称，涵盖启程、唐诗、宋词、孤枝四大分支，甄选武夷山核心产区乌龙茶。">
 <section class="pt-32 pb-16 bg-secondary text-center">
@@ -90,4 +117,6 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 </div>
 </div>
 </section>
+<script type="application/ld+json" set:html={JSON.stringify(productSchema).replace(/</g, '\u003c')} />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema).replace(/</g, '\u003c')} />
 </SiteLayout>
