@@ -8,6 +8,9 @@ qa.sort((a,b)=>{
   return db-da || ((a.data.order??9999)-(b.data.order??9999)) || a.id.localeCompare(b.id);
 });
 news.sort((a,b)=>b.data.date.getTime()-a.data.date.getTime() || a.id.localeCompare(b.id));
+// 「全部」视图：两栏目合并为一条时间线，按日期从近到远
+const merged=[...qa.map(entry=>({entry,section:'qa' as const})),...news.map(entry=>({entry,section:'news' as const}))]
+  .sort((a,b)=>((b.entry.data.date?.getTime()??-1)-(a.entry.data.date?.getTime()??-1)) || a.section.localeCompare(b.section) || a.entry.id.localeCompare(b.entry.id));
 const schema={
   '@context':'https://schema.org','@type':'BreadcrumbList',
   itemListElement:[
@@ -23,14 +26,17 @@ const schema={
   </div></section>
   <div id="brand-lists" class="py-16 bg-background"><div class="max-w-4xl mx-auto px-6 lg:px-8">
     <div class="brand-filters flex flex-wrap justify-center gap-3 mb-12" role="group" aria-label="文章分类">
-      <button type="button" data-brand-filter="all" aria-pressed="true" aria-controls="questions company-news">全部</button>
-      <button type="button" data-brand-filter="news" aria-pressed="false" aria-controls="questions company-news">企业动态</button>
-      <button type="button" data-brand-filter="qa" aria-pressed="false" aria-controls="questions company-news">常见问题</button>
+      <button type="button" data-brand-filter="all" aria-pressed="true" aria-controls="brand-all">全部</button>
+      <button type="button" data-brand-filter="news" aria-pressed="false" aria-controls="company-news">企业动态</button>
+      <button type="button" data-brand-filter="qa" aria-pressed="false" aria-controls="questions">常见问题</button>
     </div>
-    <section aria-label="常见问题" id="questions" data-brand-category="qa" class="all-category">
+    <section aria-label="全部文章" id="brand-all" data-brand-category="all">
+      <CollectionCards items={merged} headingLevel="h3" />
+    </section>
+    <section aria-label="常见问题" id="questions" data-brand-category="qa" hidden>
       <CollectionCards entries={qa} section="qa" headingLevel="h3" />
     </section>
-    <section aria-label="企业动态" id="company-news" data-brand-category="news" class="all-category mt-16 pt-8 border-t border-border/50">
+    <section aria-label="企业动态" id="company-news" data-brand-category="news" hidden>
       <CollectionCards entries={news} section="news" headingLevel="h3" />
     </section>
   </div></div>
@@ -57,11 +63,13 @@ const schema={
   buttons.forEach(button => {
     button.addEventListener('click', () => {
       const selected = button.dataset.brandFilter;
+      const active = selected === 'all' ? 'all' : selected;
       buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
       sections.forEach(section => {
-        section.hidden = selected !== 'all' && section.dataset.brandCategory !== selected;
-        section.classList.toggle('single-category', selected !== 'all');
-        section.classList.toggle('all-category', selected === 'all');
+        const show = section.dataset.brandCategory === active;
+        section.hidden = !show;
+        section.classList.toggle('single-category', !show);
+        section.classList.toggle('all-category', show);
       });
     });
   });
@@ -135,9 +143,6 @@ const schema={
   .brand-filters button:hover {background:hsl(var(--primary)/.12)}
   .brand-filters button[aria-pressed="true"] {background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
   [data-brand-category][hidden] {display:none!important}
-  .all-category > h2, .all-category > a {display:none}
-  #company-news.all-category {margin-top:1rem;padding-top:0;border-top:0}
-  #company-news.single-category {margin-top:0;padding-top:0;border-top:0}
 </style>
 <style is:global>
   /* 文章正文样式：与详情页 .markdown-content 一致（正文为客户端注入，需要全局作用域） */

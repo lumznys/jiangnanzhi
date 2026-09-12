@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import * as story from '../content/brand-story.md';
 ---
 <SiteLayout title="关于我们 - 江南枝" description="了解江南枝品牌故事与制茶理念，探寻江南乌龙茶核心产区的匠心传承，守一枝茶香，归一味本真。">
 <section class="pt-32 pb-16 bg-secondary text-center">
@@ -13,13 +14,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 <div class="" data-reveal="" data-delay="0">
 <h2 class="font-serif text-3xl font-bold text-foreground mb-8 text-center">品牌故事</h2>
 <div class="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6">
-<p class="text-[#6b6b6b]">『江南枝』之名，取自中国四大茶区中最为灵秀的一方——江南茶区。这里不仅有名动天下的绿茶，更是乌龙茶（青茶）的核心产区。这片土地孕育了中国茶中最具变化、最讲究工艺的灵魂。名茶如星，点缀在江南的山水之间，而『江南枝』便诞生于这茶香氤氲的沃土之上，专注于那一抹“绿叶红镶边”的独特韵味。</p>
-<p>『江南枝』坚持“源于一枝，精于一韵”的理念，探寻江南乌龙茶核心产区。我们严选高山生态茶园，遵循传统乌龙茶制作技艺，从看青做青到文火慢炖，只为还原一杯真正“有骨有肉”的茶。每一片茶叶，都承载着山场的风土，岩韵的铿锵，与时光的沉淀。 “枝”，是茶树的新芽，是生命的延续，也是连接过去与未来的纽带。『江南枝』，便是从这片千年茶脉中抽出的新枝，不喧哗，不张扬，只以七泡有余香的坚韧，等待懂它的人。</p>
-<p>每一片『江南枝』的茶叶，都来自江南的山风与云雾，都经过双手的温度与烈火的淬炼。它不单是一杯饮品，更是一段旅程——从山间到指尖，从闻香到品味，从一片叶子，到一段回甘悠长的静谧时光。</p>
-<p>江南有枝，不争春色，只修内韵。</p>
-<p>它只是静静生长，静静等待——</p>
-<p>等待那个懂茶的人，悬壶高冲， 在一缕兰花香或岩韵中，听见江南的低语。</p>
-<p>江南有枝，静候知音。</p>
+<story.Content />
 </div>
 </div>
 </div>
@@ -62,19 +57,6 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 </div>
 </div>
 </div>
-</div>
-</div>
-</section>
-<section class="py-20 bg-primary">
-<div class="max-w-3xl mx-auto px-6 text-center">
-<div class="" data-reveal="" data-delay="0">
-<h2 class="font-serif text-3xl font-bold text-primary-foreground mb-4">想了解更多？</h2>
-<p class="text-primary-foreground/80 mb-8">欢迎联系我们，一起品味江南的好茶时光</p>
-<a class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-md hover:bg-accent/90 transition-colors duration-300 font-medium" href="/contact">联系我们 <svg viewBox="0 0 448 512" size="14" fill="currentColor" stroke="currentColor" stroke-width="0" width="14" height="14" aria-hidden="true">
-<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
-</path>
-</svg>
-</a>
 </div>
 </div>
 </section>

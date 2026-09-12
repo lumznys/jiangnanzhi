@@ -9,58 +9,199 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 </div>
 </section>
 <section class="py-20 lg:py-28 bg-background">
-<div class="max-w-4xl mx-auto px-6 lg:px-8">
-<div class="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20">
+<div class="max-w-3xl mx-auto px-6 lg:px-8">
 <div class="" data-reveal="" data-delay="0">
-<div class="w-full max-w-lg mx-auto text-center">
-<h2 class="font-serif text-2xl font-bold text-foreground mb-6">联系方式</h2>
-<div class="space-y-5">
-<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
-<div class="flex items-center gap-3 sm:gap-4">
-<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-<svg viewBox="0 0 512 512" class="text-primary text-sm" fill="currentColor" stroke="currentColor" stroke-width="0" width="1em" height="1em" aria-hidden="true">
-<path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z">
-</path>
-</svg>
+<h2 class="font-serif text-3xl font-bold text-foreground mb-4 text-center">在线留言</h2>
+<p class="text-muted-foreground text-center mb-10">留下您的信息与需求，我们会在一个工作日内回复。</p>
+<form id="contact-form" class="contact-form">
+<input type="hidden" name="_subject" value="【江南枝官网留言】">
+<div class="form-grid">
+<div class="field">
+<label for="cf-name">姓名 <span class="required" aria-hidden="true">*</span></label>
+<input type="text" id="cf-name" name="name" required maxlength="50" placeholder="请输入您的姓名" autocomplete="name">
 </div>
-<p class="font-medium text-foreground">品茗热线</p>
+<div class="field">
+<label for="cf-contact">联系方式 <span class="required" aria-hidden="true">*</span></label>
+<input type="text" id="cf-contact" name="contact" required maxlength="100" placeholder="手机号或邮箱" autocomplete="tel" pattern="(1[3-9]\d{9}|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})" title="请输入11位手机号码或有效的邮箱地址">
 </div>
-<a href="tel:400-950-9600" class="text-muted-foreground sm:ml-auto sm:text-right hover:text-primary transition-colors">400-950-9600</a>
+<div class="field field-full">
+<label for="cf-intent">意向 <span class="required" aria-hidden="true">*</span></label>
+<select id="cf-intent" name="intent" required>
+<option value="" disabled selected>请选择您的意向</option>
+<option value="风险投资">风险投资</option>
+<option value="购买茶叶">购买茶叶</option>
+<option value="加盟品牌">加盟品牌</option>
+<option value="产品合作">产品合作</option>
+</select>
 </div>
-<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
-<div class="flex items-center gap-3 sm:gap-4">
-<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-<svg viewBox="0 0 512 512" class="text-primary text-sm" fill="currentColor" stroke="currentColor" stroke-width="0" width="1em" height="1em" aria-hidden="true">
-<path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z">
-</path>
-</svg>
-</div>
-<p class="font-medium text-foreground">邮箱地址</p>
-</div>
-<p class="text-muted-foreground sm:ml-auto sm:text-right break-all">qingyezhuguang@163.com</p>
-</div>
-<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
-<div class="flex items-center gap-3 sm:gap-4">
-<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-<svg viewBox="0 0 512 512" class="text-primary text-sm" fill="currentColor" stroke="currentColor" stroke-width="0" width="1em" height="1em" aria-hidden="true">
-<path d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z">
-</path>
-</svg>
-</div>
-<p class="font-medium text-foreground">工作时间</p>
-</div>
-<p class="text-muted-foreground sm:ml-auto sm:text-right">周一至周六 9:00 - 18:00</p>
+<div class="field field-full">
+<label for="cf-note">备注（选填）</label>
+<textarea id="cf-note" name="note" rows="6" maxlength="1000" placeholder="想对我们说的话、具体需求或问题…"></textarea>
 </div>
 </div>
-</div>
-</div>
-<div class="" data-reveal="" data-delay="200">
-<div class="flex flex-col items-center">
-<img src="/images/936a62c4-be97-4aff-a941-a3bd07c779f8-d3ba108d.jpg" alt="江南枝 - 一枝凝漳韵，一城逢知己" class="w-full max-w-[160px] rounded-lg shadow-lg">
-<p class="mt-4 text-sm text-muted-foreground">敬请关注官方公众号</p>
-</div>
-</div>
+<button type="submit" class="submit-btn">提交留言</button>
+<p id="form-status" class="form-status" role="status"></p>
+</form>
 </div>
 </div>
 </section>
+<div id="success-modal" class="modal-overlay" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+    </div>
+    <h3 id="modal-title" class="font-serif text-2xl font-bold text-foreground mb-2">提交成功</h3>
+    <p class="text-muted-foreground mb-8">您的留言已送达，我们会尽快与您联系，感谢您的关注。</p>
+    <button type="button" id="modal-close" class="modal-close-btn">好的</button>
+  </div>
+</div>
 </SiteLayout>
+
+<style>
+  /* —— 在线留言表单（纯 CSS3 自定义样式，完全响应式） —— */
+  .contact-form {max-width:680px;margin:0 auto}
+  .form-grid {display:grid;grid-template-columns:1fr;gap:1.25rem}
+  .field {display:flex;flex-direction:column;gap:.5rem}
+  .field label {font-size:.9rem;font-weight:500;color:hsl(var(--foreground))}
+  .field .required {color:hsl(var(--primary))}
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    width:100%;padding:.75rem 1rem;font-size:1rem;color:hsl(var(--foreground));
+    background:hsl(var(--background));border:1px solid hsl(var(--border));
+    border-radius:.75rem;outline:none;transition:border-color .25s,box-shadow .25s;
+  }
+  .contact-form textarea {min-height:9rem;resize:vertical;line-height:1.7}
+  .contact-form select {appearance:none;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
+  .contact-form input:focus,
+  .contact-form select:focus,
+  .contact-form textarea:focus {border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--primary)/.15)}
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {color:hsl(var(--muted-foreground)/.6)}
+  /* 校验不通过时的红色提示边框 */
+  .contact-form input[aria-invalid="true"] {border-color:#dc2626;box-shadow:0 0 0 3px rgb(220 38 38 / .15)}
+  /* 纯色自定义提交按钮 */
+  .submit-btn {
+    display:block;width:100%;margin-top:1.75rem;padding:.9rem 1.5rem;
+    font-size:1rem;font-weight:600;letter-spacing:.1em;cursor:pointer;
+    color:hsl(var(--primary-foreground));background:hsl(var(--primary));
+    border:none;border-radius:.75rem;
+    transition:background-color .25s,transform .15s,box-shadow .25s;
+  }
+  .submit-btn:hover {background:hsl(var(--primary)/.85);box-shadow:0 6px 18px hsl(var(--primary)/.25)}
+  .submit-btn:active {transform:scale(.98)}
+  .submit-btn:focus-visible {outline:3px solid hsl(var(--primary)/.4);outline-offset:2px}
+  .form-status {margin-top:1rem;font-size:.9rem;color:hsl(var(--primary));text-align:center}
+  /* —— 提交成功弹窗 —— */
+  .modal-overlay {
+    position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+    padding:1.5rem;background:hsl(var(--foreground)/.45);backdrop-filter:blur(4px);
+    opacity:0;transition:opacity .25s ease;
+  }
+  .modal-overlay.is-open {opacity:1}
+  .modal-card {
+    width:100%;max-width:420px;padding:2.5rem 2rem;text-align:center;
+    background:hsl(var(--background));border-radius:1rem;box-shadow:0 20px 60px hsl(var(--foreground)/.25);
+    transform:translateY(16px) scale(.96);transition:transform .25s ease;
+  }
+  .modal-overlay.is-open .modal-card {transform:translateY(0) scale(1)}
+  .modal-icon {
+    width:64px;height:64px;margin:0 auto 1.25rem;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:hsl(var(--primary-foreground));background:hsl(var(--primary));
+  }
+  .modal-close-btn {
+    padding:.7rem 2.5rem;font-size:1rem;font-weight:600;cursor:pointer;
+    color:hsl(var(--primary-foreground));background:hsl(var(--primary));
+    border:none;border-radius:.75rem;
+    transition:background-color .25s,transform .15s,box-shadow .25s;
+  }
+  .modal-close-btn:hover {background:hsl(var(--primary)/.85);box-shadow:0 6px 18px hsl(var(--primary)/.25)}
+  .modal-close-btn:active {transform:scale(.98)}
+  .modal-card[hidden], .modal-overlay[hidden] {display:none}
+  @media(min-width:640px){
+    .form-grid {grid-template-columns:1fr 1fr;gap:1.5rem}
+    .field-full {grid-column:1 / -1}
+    .submit-btn {width:auto;min-width:220px;display:block;margin-left:auto;margin-right:auto}
+  }
+</style>
+
+<script>
+  // 通过 Formspree 收集访客留言并发送到邮箱
+  // ↓↓↓ 把 Formspree 后台拿到的表单 ID 粘贴到这里（形如 "xyzabcd"，只取 /f/ 后面那一段） ↓↓↓
+  const FORMSPREE_ID = 'mdeovnzd';
+  // ↑↑↑ ↑↑↑
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('form-status')!;
+  const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+  const contactInput = document.getElementById('cf-contact') as HTMLInputElement;
+  const modal = document.getElementById('success-modal')!;
+  const modalClose = document.getElementById('modal-close')!;
+
+  // 联系方式校验：必须是 11 位大陆手机号或有效邮箱
+  const phoneRe = /^1[3-9]\d{9}$/;
+  const emailRe = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  contactInput.addEventListener('input', () => contactInput.setCustomValidity(''));
+
+  const show = (msg: string) => { status.textContent = msg; status.hidden = false; };
+
+  // 成功弹窗：打开（带淡入动画）/ 关闭（按钮、遮罩、Esc 均可）
+  function openModal() {
+    modal.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => modal.classList.add('is-open')));
+    modalClose.focus();
+  }
+  function closeModal() {
+    modal.classList.remove('is-open');
+    setTimeout(() => { modal.hidden = true; }, 250);
+  }
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // 联系方式格式校验（手机号或邮箱二选一）—— 先于一切提交逻辑
+    const contactVal = contactInput.value.trim();
+    const contactOk = phoneRe.test(contactVal) || emailRe.test(contactVal);
+    if (!contactOk) {
+      contactInput.setAttribute('aria-invalid', 'true');
+      contactInput.focus();
+      show('请输入正确的11位手机号码或有效的邮箱地址');
+      return;
+    }
+    contactInput.removeAttribute('aria-invalid');
+
+    if (!form.reportValidity()) return;
+
+    if (!FORMSPREE_ID) {
+      show('表单服务尚未配置：请在 contact.astro 中填入 Formspree 表单 ID。');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '提交中…';
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' },
+      });
+      if (res.ok) {
+        form.reset();
+        status.hidden = true;
+        openModal();
+      } else {
+        show('提交失败，请稍后重试，或直接发送邮件至 qingyezhuguang@163.com。');
+      }
+    } catch {
+      show('网络异常，请稍后重试，或直接发送邮件至 qingyezhuguang@163.com。');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '提交留言';
+    }
+  });
+</script>

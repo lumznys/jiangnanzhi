@@ -1,12 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-interface Props { entries: (CollectionEntry<'qa'> | CollectionEntry<'news'>)[]; section: 'qa' | 'news'; headingLevel?: 'h2' | 'h3'; }
-const {entries, section, headingLevel='h2'}=Astro.props;
+type Item = { entry: CollectionEntry<'qa'> | CollectionEntry<'news'>; section: 'qa' | 'news' };
+interface Props { items?: Item[]; entries?: Item['entry'][]; section?: 'qa' | 'news'; headingLevel?: 'h2' | 'h3'; }
+let {items, entries, section, headingLevel='h2'}=Astro.props;
+// 兼容旧用法：entries + section 自动包装为 items
+if (!items && entries && section) items = entries.map(entry => ({entry, section}));
 const Heading=headingLevel;
 const dateLabel=(date:Date)=>`${date.getUTCFullYear()}年${date.getUTCMonth()+1}月${date.getUTCDate()}日`;
 ---
 <div class="space-y-4">
-  {entries.map(entry => <article class="bg-secondary rounded-lg overflow-hidden" data-entry-id={entry.id}>
+  {items!.map(({entry, section}) => <article class="bg-secondary rounded-lg overflow-hidden" data-entry-id={entry.id}>
     <a href={`/brand-news/${section}/${entry.id}/`} class="block p-6 hover:bg-secondary/80 transition-colors duration-300">
       <div class="flex items-center gap-3 mb-3">
         <span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">{section==='qa'?'常见问题':'企业动态'}</span>
