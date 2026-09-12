@@ -3,3 +3,6 @@
 /news/*      /brand-news/news/:splat   301
 /qa          /brand-news/qa/           301
 /news        /brand-news/news/         301
+
+# 兜底：盲猜 /sitemap.xml 的工具统一引导到标准索引
+/sitemap.xml /sitemap-index.xml        301
