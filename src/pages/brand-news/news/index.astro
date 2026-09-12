@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import CollectionCards from '../../../components/CollectionCards.astro';
+const entries=(await getCollection('news')).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime() || a.id.localeCompare(b.id));
+const breadcrumbs={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[
+  {'@type':'ListItem',position:1,name:'首页',item:'https://www.jiangnantea.com/'},
+  {'@type':'ListItem',position:2,name:'品牌资讯',item:'https://www.jiangnantea.com/brand-news/'},
+  {'@type':'ListItem',position:3,name:'企业动态',item:'https://www.jiangnantea.com/brand-news/news/'},
+]};
+---
+<SiteLayout title="企业动态 - 江南枝" description="江南枝企业动态，了解茶博会参展、品牌活动与茶友交流，关注江南枝的新闻和成长。" schema={breadcrumbs}>
+  <section class="pt-32 pb-16 bg-secondary text-center"><div class="max-w-3xl mx-auto px-6">
+    <a href="/brand-news/" class="inline-flex items-center gap-2 text-primary mb-6">← 返回品牌资讯</a>
+    <h1 class="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">企业动态 - 江南枝</h1>
+    <p class="text-muted-foreground text-lg">茶博会、品牌活动与茶友交流</p>
+  </div></section>
+  <section class="py-16 bg-background"><div class="max-w-4xl mx-auto px-6 lg:px-8"><CollectionCards entries={entries} section="news" /></div></section>
+</SiteLayout>

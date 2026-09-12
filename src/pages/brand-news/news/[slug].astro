@@ -1,0 +1,8 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import CollectionArticle from '../../../layouts/CollectionArticle.astro';
+export async function getStaticPaths(){return (await getCollection('news')).map(entry=>({params:{slug:entry.id}}));}
+const entry=await getEntry('news',Astro.params.slug!);
+if(!entry)throw new Error(`Missing news entry: ${Astro.params.slug}`);
+---
+<CollectionArticle entry={entry} />

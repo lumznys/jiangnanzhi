@@ -1,0 +1,15 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import CollectionArticle from '../../../layouts/CollectionArticle.astro';
+// Keep the former news URL without retaining a duplicate question or redirecting.
+const legacyNews = { '6': '2026-spring-tea-expo' };
+export async function getStaticPaths(){
+  const entries=await getCollection('qa');
+  return [...entries.map(entry=>({params:{id:entry.id}})),{params:{id:'6'}}];
+}
+const {id}=Astro.params;
+const legacySlug=legacyNews[id as keyof typeof legacyNews];
+const entry=legacySlug?await getEntry('news',legacySlug):await getEntry('qa',id!);
+if(!entry)throw new Error(`Missing collection entry for /brand-news/qa/${id}/`);
+---
+<CollectionArticle entry={entry} legacy={Boolean(legacySlug)} />

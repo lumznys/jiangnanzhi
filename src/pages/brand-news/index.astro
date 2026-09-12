@@ -1,0 +1,156 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import CollectionCards from '../../components/CollectionCards.astro';
+const [qa, news]=await Promise.all([getCollection('qa'),getCollection('news')]);
+qa.sort((a,b)=>{
+  const da=a.data.date?.getTime()??-1, db=b.data.date?.getTime()??-1;
+  return db-da || ((a.data.order??9999)-(b.data.order??9999)) || a.id.localeCompare(b.id);
+});
+news.sort((a,b)=>b.data.date.getTime()-a.data.date.getTime() || a.id.localeCompare(b.id));
+const schema={
+  '@context':'https://schema.org','@type':'BreadcrumbList',
+  itemListElement:[
+    {'@type':'ListItem',position:1,name:'首页',item:'https://www.jiangnantea.com/'},
+    {'@type':'ListItem',position:2,name:'品牌资讯',item:'https://www.jiangnantea.com/brand-news/'},
+  ],
+};
+---
+<SiteLayout title="品牌资讯 - 江南枝" description="江南枝品牌资讯，涵盖常见问题解答与企业动态：茶叶来源、保存与冲泡方法、价格说明，以及茶博会、品牌活动等新闻。" schema={schema}>
+  <section class="pt-32 pb-16 bg-secondary text-center"><div class="max-w-3xl mx-auto px-6">
+    <h1 class="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">江南枝品牌资讯</h1>
+    <p class="text-muted-foreground text-lg">常见问题解答与企业动态</p>
+  </div></section>
+  <div id="brand-lists" class="py-16 bg-background"><div class="max-w-4xl mx-auto px-6 lg:px-8">
+    <div class="brand-filters flex flex-wrap justify-center gap-3 mb-12" role="group" aria-label="文章分类">
+      <button type="button" data-brand-filter="all" aria-pressed="true" aria-controls="questions company-news">全部</button>
+      <button type="button" data-brand-filter="news" aria-pressed="false" aria-controls="questions company-news">企业动态</button>
+      <button type="button" data-brand-filter="qa" aria-pressed="false" aria-controls="questions company-news">常见问题</button>
+    </div>
+    <section aria-label="常见问题" id="questions" data-brand-category="qa" class="all-category">
+      <CollectionCards entries={qa} section="qa" headingLevel="h3" />
+    </section>
+    <section aria-label="企业动态" id="company-news" data-brand-category="news" class="all-category mt-16 pt-8 border-t border-border/50">
+      <CollectionCards entries={news} section="news" headingLevel="h3" />
+    </section>
+  </div></div>
+  <div id="brand-article" class="py-16 bg-background" hidden>
+    <div class="max-w-3xl mx-auto px-6 lg:px-8">
+      <button id="article-back" type="button" class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors duration-300 mb-8 cursor-pointer">← 返回品牌资讯</button>
+      <div class="flex items-center gap-3 mb-4">
+        <span id="article-label" class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary"></span>
+        <time id="article-time" class="text-sm text-muted-foreground" hidden></time>
+      </div>
+      <div id="article-title" class="font-serif text-3xl lg:text-4xl font-bold text-foreground mb-10 leading-tight"></div>
+      <div id="article-body" class="article-view"></div>
+      <div class="mt-16 pt-8 border-t border-border/50">
+        <button id="article-back-2" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-secondary-foreground rounded-md cursor-pointer">← 返回列表</button>
+      </div>
+    </div>
+  </div>
+</SiteLayout>
+
+<script>
+  // 分类筛选
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-brand-filter]');
+  const sections = document.querySelectorAll<HTMLElement>('[data-brand-category]');
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const selected = button.dataset.brandFilter;
+      buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      sections.forEach(section => {
+        section.hidden = selected !== 'all' && section.dataset.brandCategory !== selected;
+        section.classList.toggle('single-category', selected !== 'all');
+        section.classList.toggle('all-category', selected === 'all');
+      });
+    });
+  });
+
+  // 页内阅读：点击文章卡片时从详情页抓取正文，在当前页直接展示（不跳转、不新开标签页）
+  const lists = document.getElementById('brand-lists')!;
+  const viewer = document.getElementById('brand-article')!;
+  const labelEl = document.getElementById('article-label')!;
+  const timeEl = document.getElementById('article-time')!;
+  const titleEl = document.getElementById('article-title')!;
+  const bodyEl = document.getElementById('article-body')!;
+  const cache = new Map<string, Document>();
+
+  const parseHref = (href: string) => {
+    const m = href.match(/\/brand-news\/(qa|news)\/([\w-]+)\//);
+    return m ? { section: m[1], id: m[2] } : null;
+  };
+
+  async function openArticle(href: string, push = true) {
+    const info = parseHref(href);
+    if (!info) return;
+    let doc = cache.get(href);
+    if (!doc) {
+      try {
+        const res = await fetch(href);
+        if (!res.ok) { location.href = href; return; }
+        doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+        cache.set(href, doc);
+      } catch { location.href = href; return; }
+    }
+    const art = doc.querySelector('article');
+    if (!art) { location.href = href; return; }
+    labelEl.textContent = art.querySelector('span')?.textContent ?? (info.section === 'qa' ? '常见问题' : '企业动态');
+    const time = art.querySelector('time');
+    if (time) { timeEl.textContent = time.textContent ?? ''; timeEl.setAttribute('datetime', time.getAttribute('datetime') ?? ''); timeEl.hidden = false; }
+    else timeEl.hidden = true;
+    titleEl.textContent = art.querySelector('h1')?.textContent ?? '';
+    bodyEl.innerHTML = art.querySelector('.markdown-content')?.innerHTML ?? '';
+    lists.hidden = true;
+    viewer.hidden = false;
+    if (push) history.pushState(null, '', `#${info.section}-${info.id}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showLists(push = true) {
+    viewer.hidden = true;
+    lists.hidden = false;
+    if (push) history.pushState(null, '', location.pathname);
+    window.scrollTo({ top: 0 });
+  }
+
+  document.getElementById('article-back')!.addEventListener('click', () => showLists());
+  document.getElementById('article-back-2')!.addEventListener('click', () => showLists());
+
+  lists.querySelectorAll<HTMLAnchorElement>('a[href*="/brand-news/qa/"], a[href*="/brand-news/news/"]').forEach(a => {
+    if (!parseHref(a.getAttribute('href') ?? '')) return;
+    a.addEventListener('click', e => { e.preventDefault(); openArticle(a.href); });
+  });
+
+  // 支持浏览器前进/后退与带 hash 的直链
+  function fromHash() {
+    const m = location.hash.slice(1).match(/^(qa|news)-([\w-]+)$/);
+    if (m) openArticle(`/brand-news/${m[1]}/${m[2]}/`, false);
+    else showLists(false);
+  }
+  window.addEventListener('popstate', fromHash);
+  if (location.hash) fromHash();
+</script>
+<style>
+  .brand-filters button {padding:.5rem 1.25rem;border-radius:.375rem;font-size:.875rem;font-weight:500;background:hsl(var(--secondary));color:hsl(var(--secondary-foreground));transition:background .2s,color .2s;cursor:pointer}
+  .brand-filters button:hover {background:hsl(var(--primary)/.12)}
+  .brand-filters button[aria-pressed="true"] {background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+  [data-brand-category][hidden] {display:none!important}
+  .all-category > h2, .all-category > a {display:none}
+  #company-news.all-category {margin-top:1rem;padding-top:0;border-top:0}
+  #company-news.single-category {margin-top:0;padding-top:0;border-top:0}
+</style>
+<style is:global>
+  /* 文章正文样式：与详情页 .markdown-content 一致（正文为客户端注入，需要全局作用域） */
+  .article-view{font-size:1rem;line-height:1.8;overflow-wrap:anywhere}
+  .article-view p,.article-view ul,.article-view ol{margin-bottom:1.5rem}
+  .article-view h2{font-size:1.5rem;font-weight:700;margin:3rem 0 1.5rem}
+  .article-view h3{font-size:1.25rem;font-weight:600;margin:2rem 0 1rem}
+  .article-view ul{list-style:disc;padding-left:1.5rem}
+  .article-view ol{list-style:decimal;padding-left:1.5rem}
+  .article-view li{margin:.4rem 0}
+  .article-view a{color:hsl(var(--primary));text-decoration:underline}
+  .article-view blockquote{border-left:3px solid hsl(var(--primary));padding-left:1rem}
+  .article-view img{max-width:100%;height:auto}
+  .article-view pre{overflow-x:auto;padding:1rem;background:hsl(var(--secondary))}
+  @media(min-width:1024px){.article-view{font-size:1.125rem}.article-view h2{font-size:1.875rem}}
+</style>

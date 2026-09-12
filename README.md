@@ -20,7 +20,7 @@ npm run build
 - `src/pages/products.astro`：四个产品系列。
 - `src/pages/about.astro` / `contact.astro`：品牌介绍和联系方式。
 - `src/pages/tea-knowledge.astro` / `qa.astro`：文章列表和分类筛选。
-- `src/data/content.json`：科普和 Q&A 正文；两个 `[id].astro` 模板生成 12 个独立详情页。
+- `src/data/content.json`：产品和茶叶科普数据；Q&A 正文已迁入 Markdown 集合。
 - `src/components/SiteHeader.astro` / `SiteFooter.astro`：公共导航与页脚。
 - `src/layouts/SiteLayout.astro`：中文语言、标题、摘要、canonical、社交文字元数据与品牌结构化数据。
 - `src/styles/reference.css`：原站样式；`site.css`：渐进增强和无障碍样式。
@@ -31,8 +31,18 @@ npm run build
 
 ## 后续维护
 
-目前列表页文字与详情数据各自保留原站内容；改文章标题、摘要时同步更新相应列表。原站有部分列表日期与详情日期不一致，尚未擅自改写。发布前请由品牌方核对文案中的产地、企业动态、品质及茶叶知识表述。
+茶叶科普列表与详情仍使用原有数据维护方式。问答与新闻的列表、详情、摘要和结构化数据均从 Markdown 集合读取。发布前请由品牌方核对文案中的产地、企业动态、品质及茶叶知识表述。
 
 Noto Serif SC 沿用原站 Google Fonts 样式引用；无法连接时使用系统衬线字体。其余品牌图片均已保存在本地。无 React 客户端渲染依赖，也不加载原站建站平台和分析脚本。
 
 原项目备份保存在本次 Codex 工作目录的 `work/original-project/`。未修改原有依赖和锁文件。静态可读性有助于抓取，但不保证搜索引擎收录或 AI 引用。
+
+## 内容集合迁移（阶段一）
+
+- 常见问题：`src/content/qa/1.md` 至 `5.md`，包含 title、60–80 字 description、数字 order；可选 date 保留原发布日期。列表按 order 升序，当前顺序为 5、1、2、3、4。
+- 企业动态：`src/content/news/2026-spring-tea-expo.md`，包含 title、description 和 date，日期取原详情数据的 2026-08-10。新增新闻使用英文短横线文件名，列表按 date 倒序。
+- `/qa/6/` 是新闻的历史保留入口，直接读取 news 集合同一篇文章，不重定向、不进入问答集合和 FAQPage。编号 6 预留给此入口，不要创建 qa/6.md；新增问答可从 7.md 开始。
+- `/news/2026-spring-tea-expo/` 为该新闻的新栏目地址。旧入口使用独立标题和摘要前缀，正文只维护一份。
+- Markdown 正文支持标题、列表和链接。将文件加入对应集合后重新构建即可生成页面。
+- FAQPage 当前为 5 组，使用问答标题与页面可见的摘要回答；不包含企业动态。
+- 阶段二已完成：`/brand-news/` 为品牌资讯总栏目，自动显示 qa 与 news 的全部条目。顶部及页脚导航已改为品牌资讯，llms.txt 同步更新。问答与新闻详情的面包屑包含品牌资讯；所有旧 URL 保留。
