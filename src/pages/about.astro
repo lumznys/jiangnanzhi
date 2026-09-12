@@ -1,8 +1,17 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import * as story from '../content/brand-story.md';
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首页', item: 'https://www.jiangnantea.com/' },
+    { '@type': 'ListItem', position: 2, name: '关于江南枝', item: 'https://www.jiangnantea.com/about/' },
+  ],
+};
 ---
-<SiteLayout title="关于我们 - 江南枝" description="了解江南枝品牌故事与制茶理念，探寻江南乌龙茶核心产区的匠心传承，守一枝茶香，归一味本真。">
+<SiteLayout title="关于我们 - 江南枝" description="了解江南枝品牌故事与制茶理念，探寻江南乌龙茶核心产区的匠心传承，守一枝茶香，归一味本真。" schema={breadcrumb}>
 <section class="pt-32 pb-16 bg-secondary text-center">
 <div class="max-w-3xl mx-auto px-6">
 <h1 class="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">关于江南枝</h1>
