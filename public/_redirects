@@ -6,3 +6,7 @@
 
 # 兜底：盲猜 /sitemap.xml 的工具统一引导到标准索引
 /sitemap.xml /sitemap-index.xml        301
+
+# 百度站长验证：Cloudflare Pages 会把 .html 308 到无后缀地址，导致百度验证失败，
+# 用 200 重写让带 .html 的原地址直接返回内容
+/baidu_verify_codeva-aSWWJupbX8.html   /baidu_verify_codeva-aSWWJupbX8   200
