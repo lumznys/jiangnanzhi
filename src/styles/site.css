@@ -25,3 +25,35 @@ a:focus-visible,button:focus-visible{outline:2px solid hsl(var(--accent));outlin
 .reveal-pending{opacity:0;transform:translateY(30px)}
 [data-reveal]{transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal-pending{opacity:1;transform:none}}
+
+/* ===== Markdown 文章正文排版（全局样式）
+   适用：详情页 .markdown-content 与 /tea-knowledge/ 页内阅读 .article-view。
+   必须为全局：页内阅读的正文由 JS 注入，Astro scoped 样式隔离对其无效；
+   Tailwind preflight 会把 h1-h6 重置为继承字号/字重，故各级标题需显式定义。 ===== */
+.markdown-content,.article-view{font-size:1rem;line-height:1.8;overflow-wrap:anywhere}
+.markdown-content p,.markdown-content ul,.markdown-content ol,
+.article-view p,.article-view ul,.article-view ol{margin-bottom:1.5rem}
+.markdown-content h1,.article-view h1{font-family:var(--font-serif,ui-serif,Georgia,serif);font-size:1.5rem;font-weight:700;line-height:1.4;margin:0 0 1.5rem}
+.markdown-content h2,.article-view h2{font-family:var(--font-serif,ui-serif,Georgia,serif);font-size:1.5rem;font-weight:700;line-height:1.4;margin:3rem 0 1.5rem}
+.markdown-content h3,.article-view h3{font-size:1.25rem;font-weight:600;line-height:1.4;margin:2rem 0 1rem}
+.markdown-content h4,.article-view h4{font-size:1.1rem;font-weight:600;margin:1.5rem 0 .75rem}
+.markdown-content h5,.markdown-content h6,.article-view h5,.article-view h6{font-size:1rem;font-weight:600;margin:1.25rem 0 .75rem}
+.markdown-content ul,.article-view ul{list-style:disc;padding-left:1.5rem}
+.markdown-content ol,.article-view ol{list-style:decimal;padding-left:1.5rem}
+.markdown-content li,.article-view li{margin:.4rem 0}
+.markdown-content li>p,.article-view li>p{margin-bottom:.4rem}
+.markdown-content a,.article-view a{color:hsl(var(--primary));text-decoration:underline;text-underline-offset:3px}
+.markdown-content blockquote,.article-view blockquote{border-left:3px solid hsl(var(--primary));padding:.25rem 0 .25rem 1rem;margin:0 0 1.5rem;color:hsl(var(--muted-foreground))}
+.markdown-content img,.article-view img{max-width:100%;height:auto;border-radius:.5rem}
+.markdown-content pre,.article-view pre{overflow-x:auto;padding:1rem;background:hsl(var(--secondary));border-radius:.5rem}
+.markdown-content hr,.article-view hr{border:0;border-top:1px solid hsl(var(--border));margin:3rem 0}
+/* 表格：完整边框 + 表头底色 + 斑马纹；窄屏横向滚动，内容不裁切 */
+.markdown-content table,.article-view table{width:100%;border-collapse:collapse;margin:0 0 1.5rem;font-size:.925rem;display:block;overflow-x:auto}
+.markdown-content th,.markdown-content td,.article-view th,.article-view td{border:1px solid hsl(var(--border));padding:.6rem .9rem;text-align:left;vertical-align:top}
+.markdown-content thead th,.article-view thead th{background:hsl(var(--secondary));font-weight:600;white-space:nowrap}
+.markdown-content tbody tr:nth-child(even),.article-view tbody tr:nth-child(even){background:hsl(var(--secondary)/.4)}
+@media(min-width:1024px){
+  .markdown-content,.article-view{font-size:1.125rem}
+  .markdown-content h2,.article-view h2{font-size:1.875rem}
+  .markdown-content h1,.article-view h1{font-size:1.75rem}
+}

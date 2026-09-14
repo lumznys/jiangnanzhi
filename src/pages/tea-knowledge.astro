@@ -102,21 +102,7 @@ const breadcrumb = {
 }))}
 </SiteLayout>
 
-<style>
-  /* 页内阅读器正文排版 */
-  .article-view{font-size:1rem;line-height:1.8;overflow-wrap:anywhere}
-  .article-view p,.article-view ul,.article-view ol{margin-bottom:1.5rem}
-  .article-view h2{font-size:1.5rem;font-weight:700;margin:3rem 0 1.5rem}
-  .article-view h3{font-size:1.25rem;font-weight:600;margin:2rem 0 1rem}
-  .article-view ul{list-style:disc;padding-left:1.5rem}
-  .article-view ol{list-style:decimal;padding-left:1.5rem}
-  .article-view li{margin:.4rem 0}
-  .article-view a{color:hsl(var(--primary));text-decoration:underline}
-  .article-view blockquote{border-left:3px solid hsl(var(--primary));padding-left:1rem}
-  .article-view img{max-width:100%;height:auto}
-  .article-view pre{overflow-x:auto;padding:1rem;background:hsl(var(--secondary))}
-  @media(min-width:1024px){.article-view{font-size:1.125rem}.article-view h2{font-size:1.875rem}}
-</style>
+{/* 正文排版样式已移至全局 site.css 的 .article-view 规则（JS 注入内容不受 scoped 样式作用） */}
 
 <script>
   // 页内阅读：正文在构建时已注入 <template>，点击直接展示（零网络请求，茶叶科普标题容器保持不动）
