@@ -7,6 +7,20 @@
 # 兜底：盲猜 /sitemap.xml 的工具统一引导到标准索引
 /sitemap.xml /sitemap-index.xml        301
 
+# 旧茶叶科普文章地址 301 到新的 knowledge-article 目录
+/tea-knowledge/1       /tea-knowledge/knowledge-article/yancha-yanyun/          301
+/tea-knowledge/1/      /tea-knowledge/knowledge-article/yancha-yanyun/          301
+/tea-knowledge/2       /tea-knowledge/knowledge-article/chunxia-qiu-cha/        301
+/tea-knowledge/2/      /tea-knowledge/knowledge-article/chunxia-qiu-cha/        301
+/tea-knowledge/3       /tea-knowledge/knowledge-article/pao-cha-shuiwen/        301
+/tea-knowledge/3/      /tea-knowledge/knowledge-article/pao-cha-shuiwen/        301
+/tea-knowledge/4       /tea-knowledge/knowledge-article/yancha-san-pinzhong/    301
+/tea-knowledge/4/      /tea-knowledge/knowledge-article/yancha-san-pinzhong/    301
+/tea-knowledge/5       /tea-knowledge/knowledge-article/chaye-chucun/           301
+/tea-knowledge/5/      /tea-knowledge/knowledge-article/chaye-chucun/           301
+/tea-knowledge/6       /tea-knowledge/knowledge-article/gaiwan-pao-cha/         301
+/tea-knowledge/6/      /tea-knowledge/knowledge-article/gaiwan-pao-cha/         301
+
 # 百度站长验证：Cloudflare Pages 会把 .html 308 到无后缀地址，导致百度验证失败，
 # 用 200 重写让带 .html 的原地址直接返回内容
 /baidu_verify_codeva-aSWWJupbX8.html   /baidu_verify_codeva-aSWWJupbX8   200

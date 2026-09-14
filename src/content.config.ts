@@ -21,4 +21,16 @@ const news = defineCollection({
   }),
 });
 
-export const collections = { qa, news };
+const knowledge = defineCollection({
+  loader: glob({ base: './src/content/knowledge', pattern: '**/*.md' }),
+  schema: z.object({
+    title: z.string().trim().min(1),
+    category: z.string().trim().min(1),
+    date: z.coerce.date(),
+    excerpt: z.string().trim().min(1),
+    image: z.string().trim().min(1),
+    order: z.number().int(),
+  }),
+});
+
+export const collections = { qa, news, knowledge };

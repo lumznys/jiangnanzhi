@@ -1,5 +1,9 @@
 ---
+import { getCollection } from 'astro:content';
+import { render } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
+
+const entries = (await getCollection('knowledge')).sort((a, b) => a.data.order - b.data.order);
 
 const breadcrumb = {
   '@context': 'https://schema.org',
@@ -20,180 +24,32 @@ const breadcrumb = {
 <section id="knowledge-lists" class="py-20 lg:py-28 bg-background">
 <div class="max-w-5xl mx-auto px-6 lg:px-8">
 <div class="space-y-12">
-<div class="" data-reveal="" data-delay="0">
-<article class="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-border/50 last:border-0">
-<div class="md:w-2/5 shrink-0">
-<img src="/images/wuyi-rock-tea-cliff-plantation-mist-c9b01a07.jpg" alt="岩茶的&quot;岩韵&quot;到底是什么？一文带你读懂武夷岩茶的核心密码" class="w-full h-[220px] md:h-[200px] object-cover rounded-lg" loading="lazy">
-</div>
-<div class="md:w-3/5 flex flex-col">
-<div class="flex items-center gap-3 mb-3">
-<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
-<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
-</path>
-</svg>茶叶科普</span>
-<span class="inline-flex items-center gap-1 text-xs text-muted-foreground">
-<svg viewBox="0 0 448 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
-</path>
-</svg>2026-08-15</span>
-</div>
-<h2 class="font-serif text-xl lg:text-2xl font-bold text-foreground mb-3 leading-snug">岩茶的&quot;岩韵&quot;到底是什么？一文带你读懂武夷岩茶的核心密码</h2>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">岩韵，是武夷岩茶独有的品质特征，也是评判岩茶品质的核心标准。它并非某种具体的香气或滋味，而是一种综合性的感官体验——茶汤入口后，在口腔中留下的深沉、厚重、持久的回味...</p>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4">岩韵的形成与武夷山独特的丹霞地貌密不可分。正岩茶区的土壤富含矿物质，茶树根系深入岩缝，吸收了丰富的微量元素，赋予了茶叶独特的&quot;骨鲠&quot;感。品饮时，茶汤醇厚饱满，咽下后喉韵深远，两颊生津持久，这便是岩韵的直观体现。</p>
-<a class="inline-flex items-center gap-2 text-primary text-sm font-medium hover:gap-3 transition-all duration-300 self-start" href="/tea-knowledge/1">阅读全文 <svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
-<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
-</path>
-</svg>
-</a>
-</div>
-</article>
-</div>
-<div class="" data-reveal="" data-delay="100">
-<article class="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-border/50 last:border-0">
-<div class="md:w-2/5 shrink-0">
-<img src="/images/spring-tea-picking-fresh-buds-morning-dew-dc0ce6c0.jpg" alt="春茶、夏茶、秋茶，到底哪个季节的茶最好喝？" class="w-full h-[220px] md:h-[200px] object-cover rounded-lg" loading="lazy">
-</div>
-<div class="md:w-3/5 flex flex-col">
-<div class="flex items-center gap-3 mb-3">
-<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
-<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
-</path>
-</svg>选茶指南</span>
-<span class="inline-flex items-center gap-1 text-xs text-muted-foreground">
-<svg viewBox="0 0 448 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
-</path>
-</svg>2026-08-10</span>
-</div>
-<h2 class="font-serif text-xl lg:text-2xl font-bold text-foreground mb-3 leading-snug">春茶、夏茶、秋茶，到底哪个季节的茶最好喝？</h2>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">不同季节采摘的茶叶，因气候、光照、温度的差异，呈现出截然不同的风味特征。春茶鲜嫩甘醇，夏茶浓烈苦涩，秋茶香气高扬，各有千秋...</p>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4">春茶经过冬季的养分积累，氨基酸含量高，茶多酚含量适中，因此滋味鲜爽甘醇，是大多数茶类的最佳采摘季节。但对于乌龙茶而言，秋茶（寒露茶）因昼夜温差大，香气往往更为高扬持久，素有&quot;春水秋香&quot;之说。</p>
-<a class="inline-flex items-center gap-2 text-primary text-sm font-medium hover:gap-3 transition-all duration-300 self-start" href="/tea-knowledge/2">阅读全文 <svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
-<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
-</path>
-</svg>
-</a>
-</div>
-</article>
-</div>
-<div class="" data-reveal="" data-delay="200">
-<article class="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-border/50 last:border-0">
-<div class="md:w-2/5 shrink-0">
-<img src="/images/hot-water-pouring-into-gaiwan-tea-brewing-ce0ade95.jpg" alt="泡茶水温的讲究：为什么不同茶叶需要不同的水温？" class="w-full h-[220px] md:h-[200px] object-cover rounded-lg" loading="lazy">
-</div>
-<div class="md:w-3/5 flex flex-col">
-<div class="flex items-center gap-3 mb-3">
-<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
-<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
-</path>
-</svg>冲泡技巧</span>
-<span class="inline-flex items-center gap-1 text-xs text-muted-foreground">
-<svg viewBox="0 0 448 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
-</path>
-</svg>2026-08-05</span>
-</div>
-<h2 class="font-serif text-xl lg:text-2xl font-bold text-foreground mb-3 leading-snug">泡茶水温的讲究：为什么不同茶叶需要不同的水温？</h2>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">水温是影响茶汤品质的关键因素之一。绿茶宜用80-85°C，白茶90-95°C，乌龙茶和普洱茶则需95-100°C沸水冲泡。水温过高或过低，都会影响茶叶内含物质的析出...</p>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4">嫩度高的茶叶（如明前绿茶）内含物质丰富且易于析出，水温过高会烫熟茶叶，导致茶汤苦涩。而乌龙茶、普洱茶等经过揉捻或发酵的茶叶，细胞壁破坏程度深，需要高温才能充分释放香气和滋味物质。掌握合适的水温，是泡好一杯茶的基本功。</p>
-<a class="inline-flex items-center gap-2 text-primary text-sm font-medium hover:gap-3 transition-all duration-300 self-start" href="/tea-knowledge/3">阅读全文 <svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
-<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
-</path>
-</svg>
-</a>
-</div>
-</article>
-</div>
-<div class="" data-reveal="" data-delay="300">
-<article class="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-border/50 last:border-0">
-<div class="md:w-2/5 shrink-0">
-<img src="/images/rock-tea-varieties-comparison-dry-leaves-044a1d61.jpg" alt="单丛、水仙、肉桂——武夷岩茶三大品种的风味对比" class="w-full h-[220px] md:h-[200px] object-cover rounded-lg" loading="lazy">
-</div>
-<div class="md:w-3/5 flex flex-col">
-<div class="flex items-center gap-3 mb-3">
-<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
-<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
-</path>
-</svg>茶叶科普</span>
-<span class="inline-flex items-center gap-1 text-xs text-muted-foreground">
-<svg viewBox="0 0 448 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
-</path>
-</svg>2026-07-28</span>
-</div>
-<h2 class="font-serif text-xl lg:text-2xl font-bold text-foreground mb-3 leading-snug">单丛、水仙、肉桂——武夷岩茶三大品种的风味对比</h2>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">武夷岩茶品种繁多，其中大红袍、水仙、肉桂是最具代表性的三大品种。它们在香气、滋味、口感上各有特色，适合不同口味的茶友...</p>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4">水仙以醇厚的汤感和兰花香见长，树龄越老，丛味越显；肉桂则以辛锐的桂皮香和刺激的口感著称，霸气十足；大红袍作为武夷岩茶的代表，香气馥郁，滋味醇厚，岩韵明显。三者各有千秋，可根据个人口味偏好选择。</p>
-<a class="inline-flex items-center gap-2 text-primary text-sm font-medium hover:gap-3 transition-all duration-300 self-start" href="/tea-knowledge/4">阅读全文 <svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
-<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
-</path>
-</svg>
-</a>
-</div>
-</article>
-</div>
-<div class="" data-reveal="" data-delay="400">
-<article class="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-border/50 last:border-0">
-<div class="md:w-2/5 shrink-0">
-<img src="/images/tea-storage-ceramic-jars-wooden-shelf-d1e630cc.jpg" alt="茶叶储存的正确方式：如何让好茶历久弥香？" class="w-full h-[220px] md:h-[200px] object-cover rounded-lg" loading="lazy">
-</div>
-<div class="md:w-3/5 flex flex-col">
-<div class="flex items-center gap-3 mb-3">
-<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
-<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
-</path>
-</svg>存茶知识</span>
-<span class="inline-flex items-center gap-1 text-xs text-muted-foreground">
-<svg viewBox="0 0 448 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
-</path>
-</svg>2026-07-20</span>
-</div>
-<h2 class="font-serif text-xl lg:text-2xl font-bold text-foreground mb-3 leading-snug">茶叶储存的正确方式：如何让好茶历久弥香？</h2>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">茶叶的储存直接影响其品质变化。绿茶需冷藏保鲜，乌龙茶需密封避光，普洱茶则需通风透气。不同的茶类有不同的储存要求...</p>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4">储存茶叶的核心原则是避光、防潮、防异味、防氧化。绿茶和不发酵茶类建议密封后放入冰箱冷藏，保持鲜爽度；乌龙茶和红茶密封常温保存即可；普洱茶和白茶则需要适当的通风环境，让其在自然条件下缓慢转化，越陈越香。</p>
-<a class="inline-flex items-center gap-2 text-primary text-sm font-medium hover:gap-3 transition-all duration-300 self-start" href="/tea-knowledge/5">阅读全文 <svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
-<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
-</path>
-</svg>
-</a>
-</div>
-</article>
-</div>
-<div class="" data-reveal="" data-delay="500">
-<article class="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-border/50 last:border-0">
-<div class="md:w-2/5 shrink-0">
-<img src="/images/white-porcelain-gaiwan-tea-brewing-ceremony-d23a5f99.jpg" alt="盖碗泡茶的完整流程：从温杯到出汤的每一步细节" class="w-full h-[220px] md:h-[200px] object-cover rounded-lg" loading="lazy">
-</div>
-<div class="md:w-3/5 flex flex-col">
-<div class="flex items-center gap-3 mb-3">
-<span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">
-<svg viewBox="0 0 512 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z">
-</path>
-</svg>冲泡技巧</span>
-<span class="inline-flex items-center gap-1 text-xs text-muted-foreground">
-<svg viewBox="0 0 448 512" size="10" fill="currentColor" stroke="currentColor" stroke-width="0" width="10" height="10" aria-hidden="true">
-<path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z">
-</path>
-</svg>2026-07-15</span>
-</div>
-<h2 class="font-serif text-xl lg:text-2xl font-bold text-foreground mb-3 leading-snug">盖碗泡茶的完整流程：从温杯到出汤的每一步细节</h2>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">盖碗是最经典的泡茶器具之一，掌握盖碗的使用技巧，能够更好地控制茶汤的浓淡和口感。从温杯、投茶、注水到出汤，每一步都有讲究...</p>
-<p class="text-muted-foreground text-sm leading-relaxed mb-4">盖碗泡茶的标准流程：先温杯洁具，提升器皿温度；投茶量一般为盖碗容量的1/3至1/2；注水时沿杯壁缓缓注入，避免直冲茶叶；第一泡为醒茶，快速出汤不饮；正式冲泡时根据茶叶特性控制浸泡时间，通常前几泡10-15秒，后续逐渐延长。</p>
-<a class="inline-flex items-center gap-2 text-primary text-sm font-medium hover:gap-3 transition-all duration-300 self-start" href="/tea-knowledge/6">阅读全文 <svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
-<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
-</path>
-</svg>
-</a>
-</div>
-</article>
-</div>
+{entries.map((entry, i) => {
+  const dateStr = entry.data.date.toISOString().slice(0, 10);
+  const href = `/tea-knowledge/knowledge-article/${entry.id}/`;
+  return (
+  <div data-reveal="" data-delay={i * 100}>
+  <article class="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-border/50 last:border-0">
+  <div class="md:w-2/5 shrink-0">
+  <img src={entry.data.image} alt={entry.data.title} class="w-full h-[220px] md:h-[200px] object-cover rounded-lg" loading="lazy">
+  </div>
+  <div class="md:w-3/5 flex flex-col">
+  <div class="flex items-center gap-3 mb-3">
+  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">{entry.data.category}</span>
+  <time class="text-sm text-muted-foreground" datetime={dateStr}>{dateStr}</time>
+  </div>
+  <h2 class="font-serif text-xl lg:text-2xl font-bold text-foreground mb-3 leading-snug">{entry.data.title}</h2>
+  <p class="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">{entry.data.excerpt}</p>
+  <a class="knowledge-open inline-flex items-center gap-2 text-primary text-sm font-medium hover:gap-3 transition-all duration-300 self-start" href={href} data-slug={entry.id}>阅读全文 <svg viewBox="0 0 448 512" size="12" fill="currentColor" stroke="currentColor" stroke-width="0" width="12" height="12" aria-hidden="true">
+  <path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
+  </path>
+  </svg>
+  </a>
+  </div>
+  </article>
+  </div>
+  );
+})}
 </div>
 </div>
 </section>
@@ -212,6 +68,17 @@ const breadcrumb = {
     </div>
   </div>
 </div>
+
+{/* 构建时注入每篇文章的正文模板：页内阅读零请求、点击必定生效 */}
+<script type="application/json" id="knowledge-meta" set:html={JSON.stringify(Object.fromEntries(entries.map((e) => [e.id, { title: e.data.title, category: e.data.category, date: e.data.date.toISOString().slice(0, 10), image: e.data.image }]))).replace(/</g, '\u003c')} />
+{await Promise.all(entries.map(async (entry) => {
+  const { Content } = await render(entry);
+  return (
+  <template id={`ka-tpl-${entry.id}`}>
+    <Content />
+  </template>
+  );
+}))}
 </SiteLayout>
 
 <style>
@@ -231,7 +98,7 @@ const breadcrumb = {
 </style>
 
 <script>
-  // 页内阅读：点击「阅读全文」时抓取详情页正文，在当前页直接展示（茶叶科普标题容器保持不动）
+  // 页内阅读：正文在构建时已注入 <template>，点击直接展示（零网络请求，茶叶科普标题容器保持不动）
   const lists = document.getElementById('knowledge-lists')!;
   const viewer = document.getElementById('knowledge-article')!;
   const labelEl = document.getElementById('knowledge-label')!;
@@ -239,39 +106,29 @@ const breadcrumb = {
   const titleEl = document.getElementById('knowledge-title')!;
   const imageEl = document.getElementById('knowledge-image') as HTMLImageElement;
   const bodyEl = document.getElementById('knowledge-body')!;
-  const cache = new Map<string, Document>();
 
-  const parseHref = (href: string) => {
-    const m = href.match(/\/tea-knowledge\/(\d+)\//);
-    return m ? { id: m[1] } : null;
-  };
+  const articleMeta: Record<string, { title: string; category: string; date: string; image: string }> = JSON.parse(
+    (document.getElementById('knowledge-meta') as HTMLScriptElement | null)?.textContent ?? '{}'
+  );
 
-  async function openArticle(href: string, push = true) {
-    const info = parseHref(href);
-    if (!info) return;
-    let doc = cache.get(href);
-    if (!doc) {
-      try {
-        const res = await fetch(href);
-        if (!res.ok) { location.href = href; return; }
-        doc = new DOMParser().parseFromString(await res.text(), 'text/html');
-        cache.set(href, doc);
-      } catch { location.href = href; return; }
+  function openArticle(slug: string, push = true) {
+    const tpl = document.getElementById(`ka-tpl-${slug}`) as HTMLTemplateElement | null;
+    if (!tpl) { location.href = `/tea-knowledge/knowledge-article/${slug}/`; return; }
+    const meta = articleMeta[slug];
+    if (meta) {
+      labelEl.textContent = meta.category;
+      timeEl.textContent = meta.date;
+      timeEl.setAttribute('datetime', meta.date);
+      timeEl.hidden = false;
+      titleEl.textContent = meta.title;
+      if (meta.image) { imageEl.src = meta.image; imageEl.alt = meta.title; imageEl.hidden = false; }
+      else imageEl.hidden = true;
     }
-    const art = doc.querySelector('article');
-    if (!art) { location.href = href; return; }
-    labelEl.textContent = art.querySelector('span')?.textContent ?? '茶叶科普';
-    const time = art.querySelector('time');
-    if (time) { timeEl.textContent = time.textContent ?? ''; timeEl.setAttribute('datetime', time.getAttribute('datetime') ?? ''); timeEl.hidden = false; }
-    else timeEl.hidden = true;
-    titleEl.textContent = art.querySelector('h1')?.textContent ?? '';
-    const img = art.querySelector('img');
-    if (img) { imageEl.src = img.getAttribute('src') ?? ''; imageEl.alt = img.getAttribute('alt') ?? ''; imageEl.hidden = false; }
-    else imageEl.hidden = true;
-    bodyEl.innerHTML = art.querySelector('.prose')?.innerHTML ?? '';
+    bodyEl.innerHTML = '';
+    bodyEl.appendChild(tpl.content.cloneNode(true));
     lists.hidden = true;
     viewer.hidden = false;
-    if (push) history.pushState(null, '', `#knowledge-${info.id}`);
+    if (push) history.pushState(null, '', `#knowledge-${slug}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -282,22 +139,22 @@ const breadcrumb = {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  lists.querySelectorAll<HTMLAnchorElement>('a[href^="/tea-knowledge/"]').forEach((a) => {
+  document.querySelectorAll<HTMLAnchorElement>('.knowledge-open').forEach((a) => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      openArticle(a.getAttribute('href')!);
+      openArticle(a.dataset.slug!);
     });
   });
   document.getElementById('knowledge-back')!.addEventListener('click', () => showLists());
   document.getElementById('knowledge-back-2')!.addEventListener('click', () => showLists());
 
   window.addEventListener('popstate', () => {
-    const m = location.hash.match(/^#knowledge-(\d+)$/);
-    if (m) openArticle(`/tea-knowledge/${m[1]}/`, false);
+    const m = location.hash.match(/^#knowledge-([\w-]+)$/);
+    if (m) openArticle(m[1], false);
     else showLists(false);
   });
 
-  // 支持 #knowledge-1 这类直达链接
-  const initial = location.hash.match(/^#knowledge-(\d+)$/);
-  if (initial) openArticle(`/tea-knowledge/${initial[1]}/`, false);
+  // 支持 #knowledge-<slug> 直达链接
+  const initial = location.hash.match(/^#knowledge-([\w-]+)$/);
+  if (initial) openArticle(initial[1], false);
 </script>
