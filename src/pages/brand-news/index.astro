@@ -8,14 +8,25 @@ qa.sort((a,b)=>{
   return db-da || ((a.data.order??9999)-(b.data.order??9999)) || a.id.localeCompare(b.id);
 });
 news.sort((a,b)=>b.data.date.getTime()-a.data.date.getTime() || a.id.localeCompare(b.id));
-// 「全部」视图：两栏目合并为一条时间线，按日期从近到远
-const merged=[...qa.map(entry=>({entry,section:'qa' as const})),...news.map(entry=>({entry,section:'news' as const}))]
+// 「全部」视图：两栏目合并为一条时间线，按日期从近到远；页面仅展示最近 8 篇，其余文章仍生成详情页并通过 ItemList 供 AI/爬虫抓取
+const mergedAll=[...qa.map(entry=>({entry,section:'qa' as const})),...news.map(entry=>({entry,section:'news' as const}))]
   .sort((a,b)=>((b.entry.data.date?.getTime()??-1)-(a.entry.data.date?.getTime()??-1)) || a.section.localeCompare(b.section) || a.entry.id.localeCompare(b.entry.id));
+const merged=mergedAll.slice(0,8);
+const visibleQa=qa.slice(0,8);
+const visibleNews=news.slice(0,8);
 const schema={
-  '@context':'https://schema.org','@type':'BreadcrumbList',
-  itemListElement:[
-    {'@type':'ListItem',position:1,name:'首页',item:'https://www.jiangnantea.com/'},
-    {'@type':'ListItem',position:2,name:'品牌资讯',item:'https://www.jiangnantea.com/brand-news/'},
+  '@context':'https://schema.org','@graph':[
+    {'@type':'BreadcrumbList',
+    itemListElement:[
+      {'@type':'ListItem',position:1,name:'首页',item:'https://www.jiangnantea.com/'},
+      {'@type':'ListItem',position:2,name:'品牌资讯',item:'https://www.jiangnantea.com/brand-news/'},
+    ]},
+    // ItemList 覆盖全部文章（含未在页面上展示的），供 AI 引擎与爬虫抓取完整清单
+    {'@type':'ItemList',name:'江南枝品牌资讯文章列表',numberOfItems:mergedAll.length,
+    itemListElement:mergedAll.map((m,i)=>({
+      '@type':'ListItem',position:i+1,name:m.entry.data.title,
+      url:`https://www.jiangnantea.com/brand-news/${m.section}/${m.entry.id}/`,
+    }))},
   ],
 };
 ---
@@ -34,10 +45,10 @@ const schema={
       <CollectionCards items={merged} headingLevel="h3" />
     </section>
     <section aria-label="常见问题" id="questions" data-brand-category="qa" hidden>
-      <CollectionCards entries={qa} section="qa" headingLevel="h3" />
+      <CollectionCards entries={visibleQa} section="qa" headingLevel="h3" />
     </section>
     <section aria-label="企业动态" id="company-news" data-brand-category="news" hidden>
-      <CollectionCards entries={news} section="news" headingLevel="h3" />
+      <CollectionCards entries={visibleNews} section="news" headingLevel="h3" />
     </section>
   </div></div>
   <div id="brand-article" class="py-16 bg-background" hidden>

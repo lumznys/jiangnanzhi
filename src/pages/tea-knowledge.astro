@@ -3,19 +3,35 @@ import { getCollection } from 'astro:content';
 import { render } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
-const entries = (await getCollection('knowledge')).sort((a, b) => a.data.order - b.data.order);
+// 全部文章按日期从近到远；页面仅展示最近 8 篇，其余文章仍生成详情页并通过 ItemList 供 AI/爬虫抓取
+const all = (await getCollection('knowledge')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const entries = all.slice(0, 8);
 
 // 题图提取：优先取 markdown 正文中的第一张图（文章首图），无正文图时回退到 frontmatter 的 image
 const firstImageRe = /!\[[^\]]*\]\(\s*<?([^)\s>]+)>?/;
-const imgOf = (entry: (typeof entries)[number]) =>
+const imgOf = (entry: (typeof all)[number]) =>
   entry.body?.match(firstImageRe)?.[1] ?? entry.data.image;
 
 const breadcrumb = {
   '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: '首页', item: 'https://www.jiangnantea.com/' },
-    { '@type': 'ListItem', position: 2, name: '茶叶科普', item: 'https://www.jiangnantea.com/tea-knowledge/' },
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '首页', item: 'https://www.jiangnantea.com/' },
+        { '@type': 'ListItem', position: 2, name: '茶叶科普', item: 'https://www.jiangnantea.com/tea-knowledge/' },
+      ],
+    },
+    // ItemList 覆盖全部文章（含未在页面上展示的），供 AI 引擎与爬虫抓取完整清单
+    {
+      '@type': 'ItemList',
+      name: '茶叶科普文章列表',
+      numberOfItems: all.length,
+      itemListElement: all.map((e, i) => ({
+        '@type': 'ListItem', position: i + 1, name: e.data.title,
+        url: `https://www.jiangnantea.com/tea-knowledge/knowledge-article/${e.id}/`,
+      })),
+    },
   ],
 };
 ---
@@ -74,9 +90,9 @@ const breadcrumb = {
   </div>
 </div>
 
-{/* 构建时注入每篇文章的正文模板：页内阅读零请求、点击必定生效 */}
-<script type="application/json" id="knowledge-meta" set:html={JSON.stringify(Object.fromEntries(entries.map((e) => [e.id, { title: e.data.title, category: e.data.category, date: e.data.date.toISOString().slice(0, 10), image: imgOf(e) }]))).replace(/</g, '\u003c')} />
-{await Promise.all(entries.map(async (entry) => {
+{/* 构建时注入全部文章的正文模板：页内阅读零请求、点击必定生效；模板对爬虫同样可读 */}
+<script type="application/json" id="knowledge-meta" set:html={JSON.stringify(Object.fromEntries(all.map((e) => [e.id, { title: e.data.title, category: e.data.category, date: e.data.date.toISOString().slice(0, 10), image: imgOf(e) }]))).replace(/</g, '\u003c')} />
+{await Promise.all(all.map(async (entry) => {
   const { Content } = await render(entry);
   return (
   <template id={`ka-tpl-${entry.id}`}>
