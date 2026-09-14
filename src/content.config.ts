@@ -28,7 +28,7 @@ const knowledge = defineCollection({
     category: z.string().trim().min(1),
     date: z.coerce.date(),
     excerpt: z.string().trim().min(1),
-    image: z.string().trim().min(1),
+    image: z.string().trim().min(1).optional(),
     order: z.number().int(),
   }),
 });

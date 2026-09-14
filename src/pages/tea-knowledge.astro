@@ -5,6 +5,11 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 
 const entries = (await getCollection('knowledge')).sort((a, b) => a.data.order - b.data.order);
 
+// 题图提取：优先取 markdown 正文中的第一张图（文章首图），无正文图时回退到 frontmatter 的 image
+const firstImageRe = /!\[[^\]]*\]\(\s*<?([^)\s>]+)>?/;
+const imgOf = (entry: (typeof entries)[number]) =>
+  entry.body?.match(firstImageRe)?.[1] ?? entry.data.image;
+
 const breadcrumb = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -31,7 +36,7 @@ const breadcrumb = {
   <div data-reveal="" data-delay={i * 100}>
   <article class="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-border/50 last:border-0">
   <div class="md:w-2/5 shrink-0">
-  <img src={entry.data.image} alt={entry.data.title} class="w-full h-[220px] md:h-[200px] object-cover rounded-lg" loading="lazy">
+  <img src={imgOf(entry)} alt={entry.data.title} class="w-full h-[220px] md:h-[200px] object-cover object-top rounded-lg" loading="lazy">
   </div>
   <div class="md:w-3/5 flex flex-col">
   <div class="flex items-center gap-3 mb-3">
@@ -70,7 +75,7 @@ const breadcrumb = {
 </div>
 
 {/* 构建时注入每篇文章的正文模板：页内阅读零请求、点击必定生效 */}
-<script type="application/json" id="knowledge-meta" set:html={JSON.stringify(Object.fromEntries(entries.map((e) => [e.id, { title: e.data.title, category: e.data.category, date: e.data.date.toISOString().slice(0, 10), image: e.data.image }]))).replace(/</g, '\u003c')} />
+<script type="application/json" id="knowledge-meta" set:html={JSON.stringify(Object.fromEntries(entries.map((e) => [e.id, { title: e.data.title, category: e.data.category, date: e.data.date.toISOString().slice(0, 10), image: imgOf(e) }]))).replace(/</g, '\u003c')} />
 {await Promise.all(entries.map(async (entry) => {
   const { Content } = await render(entry);
   return (
