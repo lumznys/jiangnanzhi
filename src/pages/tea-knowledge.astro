@@ -17,7 +17,7 @@ const breadcrumb = {
 <p class="text-muted-foreground text-lg">来自「江南枝茶业」公众号的精选文章，涵盖岩茶知识、选茶指南、冲泡技巧与存茶方法，与您分享茶的知识与乐趣</p>
 </div>
 </section>
-<section class="py-20 lg:py-28 bg-background">
+<section id="knowledge-lists" class="py-20 lg:py-28 bg-background">
 <div class="max-w-5xl mx-auto px-6 lg:px-8">
 <div class="space-y-12">
 <div class="" data-reveal="" data-delay="0">
@@ -197,4 +197,107 @@ const breadcrumb = {
 </div>
 </div>
 </section>
+<div id="knowledge-article" class="py-16 bg-background" hidden>
+  <div class="max-w-3xl mx-auto px-6 lg:px-8">
+    <button id="knowledge-back" type="button" class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors duration-300 mb-8 cursor-pointer">← 返回茶叶科普</button>
+    <div class="flex items-center gap-3 mb-4">
+      <span id="knowledge-label" class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary"></span>
+      <time id="knowledge-time" class="text-sm text-muted-foreground" hidden></time>
+    </div>
+    <div id="knowledge-title" class="font-serif text-3xl lg:text-4xl font-bold text-foreground mb-6 leading-tight"></div>
+    <img id="knowledge-image" src="" alt="" class="w-full h-[300px] lg:h-[400px] object-cover rounded-lg mb-10" hidden />
+    <div id="knowledge-body" class="article-view"></div>
+    <div class="mt-16 pt-8 border-t border-border/50">
+      <button id="knowledge-back-2" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors duration-300 cursor-pointer">← 返回文章列表</button>
+    </div>
+  </div>
+</div>
 </SiteLayout>
+
+<style>
+  /* 页内阅读器正文排版 */
+  .article-view{font-size:1rem;line-height:1.8;overflow-wrap:anywhere}
+  .article-view p,.article-view ul,.article-view ol{margin-bottom:1.5rem}
+  .article-view h2{font-size:1.5rem;font-weight:700;margin:3rem 0 1.5rem}
+  .article-view h3{font-size:1.25rem;font-weight:600;margin:2rem 0 1rem}
+  .article-view ul{list-style:disc;padding-left:1.5rem}
+  .article-view ol{list-style:decimal;padding-left:1.5rem}
+  .article-view li{margin:.4rem 0}
+  .article-view a{color:hsl(var(--primary));text-decoration:underline}
+  .article-view blockquote{border-left:3px solid hsl(var(--primary));padding-left:1rem}
+  .article-view img{max-width:100%;height:auto}
+  .article-view pre{overflow-x:auto;padding:1rem;background:hsl(var(--secondary))}
+  @media(min-width:1024px){.article-view{font-size:1.125rem}.article-view h2{font-size:1.875rem}}
+</style>
+
+<script>
+  // 页内阅读：点击「阅读全文」时抓取详情页正文，在当前页直接展示（茶叶科普标题容器保持不动）
+  const lists = document.getElementById('knowledge-lists')!;
+  const viewer = document.getElementById('knowledge-article')!;
+  const labelEl = document.getElementById('knowledge-label')!;
+  const timeEl = document.getElementById('knowledge-time') as HTMLTimeElement;
+  const titleEl = document.getElementById('knowledge-title')!;
+  const imageEl = document.getElementById('knowledge-image') as HTMLImageElement;
+  const bodyEl = document.getElementById('knowledge-body')!;
+  const cache = new Map<string, Document>();
+
+  const parseHref = (href: string) => {
+    const m = href.match(/\/tea-knowledge\/(\d+)\//);
+    return m ? { id: m[1] } : null;
+  };
+
+  async function openArticle(href: string, push = true) {
+    const info = parseHref(href);
+    if (!info) return;
+    let doc = cache.get(href);
+    if (!doc) {
+      try {
+        const res = await fetch(href);
+        if (!res.ok) { location.href = href; return; }
+        doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+        cache.set(href, doc);
+      } catch { location.href = href; return; }
+    }
+    const art = doc.querySelector('article');
+    if (!art) { location.href = href; return; }
+    labelEl.textContent = art.querySelector('span')?.textContent ?? '茶叶科普';
+    const time = art.querySelector('time');
+    if (time) { timeEl.textContent = time.textContent ?? ''; timeEl.setAttribute('datetime', time.getAttribute('datetime') ?? ''); timeEl.hidden = false; }
+    else timeEl.hidden = true;
+    titleEl.textContent = art.querySelector('h1')?.textContent ?? '';
+    const img = art.querySelector('img');
+    if (img) { imageEl.src = img.getAttribute('src') ?? ''; imageEl.alt = img.getAttribute('alt') ?? ''; imageEl.hidden = false; }
+    else imageEl.hidden = true;
+    bodyEl.innerHTML = art.querySelector('.prose')?.innerHTML ?? '';
+    lists.hidden = true;
+    viewer.hidden = false;
+    if (push) history.pushState(null, '', `#knowledge-${info.id}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showLists(push = true) {
+    viewer.hidden = true;
+    lists.hidden = false;
+    if (push) history.pushState(null, '', location.pathname);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  lists.querySelectorAll<HTMLAnchorElement>('a[href^="/tea-knowledge/"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      openArticle(a.getAttribute('href')!);
+    });
+  });
+  document.getElementById('knowledge-back')!.addEventListener('click', () => showLists());
+  document.getElementById('knowledge-back-2')!.addEventListener('click', () => showLists());
+
+  window.addEventListener('popstate', () => {
+    const m = location.hash.match(/^#knowledge-(\d+)$/);
+    if (m) openArticle(`/tea-knowledge/${m[1]}/`, false);
+    else showLists(false);
+  });
+
+  // 支持 #knowledge-1 这类直达链接
+  const initial = location.hash.match(/^#knowledge-(\d+)$/);
+  if (initial) openArticle(`/tea-knowledge/${initial[1]}/`, false);
+</script>
