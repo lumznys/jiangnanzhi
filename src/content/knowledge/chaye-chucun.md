@@ -4,7 +4,6 @@ category: 存茶知识
 date: 2026-07-20
 excerpt: 茶叶的储存直接影响其品质变化。绿茶需冷藏保鲜，乌龙茶需密封避光，普洱茶则需通风透气。不同的茶类有不同的储存要求...
 image: /images/tea-storage-ceramic-jars-wooden-shelf-f6addced.jpg
-order: 5
 ---
 
 茶叶的储存直接影响其品质变化。不同的茶类因工艺和特性的差异，有不同的储存要求。掌握正确的储存方法，才能让好茶历久弥香。

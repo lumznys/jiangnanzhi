@@ -4,7 +4,6 @@ category: 茶叶科普
 date: 2026-07-28
 excerpt: 武夷岩茶品种繁多，其中大红袍、水仙、肉桂是最具代表性的三大品种。它们在香气、滋味、口感上各有特色，适合不同口味的茶友...
 image: /images/rock-tea-varieties-comparison-dry-leaves-b13a5a57.jpg
-order: 4
 ---
 
 武夷岩茶品种繁多，其中水仙、肉桂、大红袍是最具代表性的三大品种。它们在香气、滋味、口感上各有特色，适合不同口味的茶友。

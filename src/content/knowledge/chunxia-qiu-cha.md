@@ -4,7 +4,6 @@ category: 选茶指南
 date: 2026-08-10
 excerpt: 不同季节采摘的茶叶，因气候、光照、温度的差异，呈现出截然不同的风味特征。春茶鲜嫩甘醇，夏茶浓烈苦涩，秋茶香气高扬，各有千秋...
 image: /images/spring-tea-picking-fresh-buds-morning-dew-dc0ce6c0.jpg
-order: 2
 ---
 
 不同季节采摘的茶叶，因气候、光照、温度的差异，呈现出截然不同的风味特征。了解各季节茶的特点，有助于我们根据口味偏好选择合适的茶叶。
