@@ -18,6 +18,7 @@ const news = defineCollection({
     title: z.string().trim().min(1),
     description: z.string().trim().min(1),
     date: z.coerce.date(),
+    image: z.string().trim().min(1).optional(),
   }),
 });
 

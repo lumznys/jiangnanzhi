@@ -10,7 +10,7 @@ const dateLabel=(date:Date)=>`${date.getUTCFullYear()}年${date.getUTCMonth()+1}
 ---
 <div class="space-y-4">
   {items!.map(({entry, section}) => <article class="bg-secondary rounded-lg overflow-hidden" data-entry-id={entry.id}>
-    <a href={`/brand-news/${section}/${entry.id}/`} class="block p-6 hover:bg-secondary/80 transition-colors duration-300">
+    <a href={`/brand-news/${entry.id}/`} class="block p-6 hover:bg-secondary/80 transition-colors duration-300">
       <div class="flex items-center gap-3 mb-3">
         <span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">{section==='qa'?'常见问题':'企业动态'}</span>
         {entry.data.date && <time class="text-sm text-muted-foreground" datetime={entry.data.date.toISOString().slice(0,10)}>{dateLabel(entry.data.date)}</time>}

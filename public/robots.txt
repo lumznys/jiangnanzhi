@@ -1,42 +1,79 @@
 # 允许所有搜索引擎和 AI 爬虫抓取
-# 通用规则也适用于腾讯 AI 服务的爬虫，允许抓取公开页面
-# 未单独列出的爬虫遵循此组规则，后台管理路径除外
+# 说明：robots.txt 中单独分组不继承 * 组规则，故每组均显式重复禁止路径，
+# 保证「允许 AI 爬虫」与「禁止后台路径」两组规则不互相矛盾。
 
 User-agent: *
-Allow: /
-
-# 禁止抓取后台管理路径
-
 Disallow: /admin
 Disallow: /api
 Disallow: /login
 Disallow: /register
 Disallow: /dashboard
+Allow: /
 
-# 明确允许 AI 爬虫
+# 明确允许的搜索引擎与 AI 爬虫
 
 User-agent: GPTBot
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
 Allow: /
 
 User-agent: ChatGPT-User
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
 Allow: /
 
 User-agent: ClaudeBot
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
 Allow: /
 
 User-agent: PerplexityBot
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
 Allow: /
 
 User-agent: Google-Extended
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
 Allow: /
 
 User-agent: Baiduspider
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
 Allow: /
 
 User-agent: Bytespider
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
 Allow: /
 
 User-agent: Bingbot
+Disallow: /admin
+Disallow: /api
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
 Allow: /
 
 # 站点地图

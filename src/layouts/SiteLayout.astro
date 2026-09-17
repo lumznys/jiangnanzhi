@@ -6,7 +6,7 @@ import '../styles/site.css';
 interface Props { title: string; description: string; schema?: Record<string, unknown>; noindex?: boolean; canonicalOverride?: string; }
 const {title, description, schema, noindex=false, canonicalOverride} = Astro.props;
 const canonical = canonicalOverride ?? new URL(Astro.url.pathname, 'https://www.jiangnantea.com').href;
-const organization = {'@type':'Organization','@id':'https://www.jiangnantea.com/#organization',name:'江南枝',url:'https://www.jiangnantea.com',logo:'https://www.jiangnantea.com/favicon.ico',description:'江南枝是漳州青野逐光文化发展有限公司旗下的茶叶品牌，秉持「守一枝茶香，归一味本真」的理念。',slogan:'江南有枝，静候知音',telephone:'400-950-9600',email:'qingyezhuguang@163.com',parentOrganization:{'@type':'Organization',name:'漳州青野逐光文化发展有限公司'}};
+const organization = {'@type':'Organization','@id':'https://www.jiangnantea.com/#organization',name:'江南枝',url:'https://www.jiangnantea.com',logo:'https://www.jiangnantea.com/favicon.ico',description:'江南枝是漳州青野逐光文化发展有限公司旗下的茶叶品牌，秉持「守一枝茶香，归一味本真」的理念。',slogan:'江南有枝，静候知音',telephone:'400-950-9600',email:'qingyezhuguang@163.com',parentOrganization:{'@type':'Organization',name:'漳州青野逐光文化发展有限公司'},legalName:'漳州青野逐光文化发展有限公司',areaServed:'CN',foundingDate:'2026',sameAs:['https://www.toutiao.com/c/user/token/CizPQyb2qXV_6cfPhEoaLkrtqdv2ZYVrtO3DzB1fFgDjgUjj7pjq__ceHxIo3RpJCjwAAAAAAAAAAAAAUOnN8eVd_EWNS6214cFaSWBeagy8uzZiCFhgKlpY6rSnFFCh_JzdJQErjbLcMINmYzoQycScDhjDxYPqBCIBA3Kf0GU=/','https://author.baidu.com/home?app_id=1874923718060100','https://aiqicha.baidu.com/company_detail_65529878422975']};
 const siteSchema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -40,6 +40,7 @@ const siteSchema = {
     <meta property="og:url" content={canonical} />
     <script type="application/ld+json" set:html={JSON.stringify(siteSchema).replace(/</g,'\\u003c')} />
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g,'\\u003c')} />}
+    <slot name="head" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">跳转到正文</a>

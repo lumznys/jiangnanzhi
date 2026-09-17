@@ -1,0 +1,25 @@
+---
+// Article/NewsArticle 结构化数据组件：用于新闻/文章详情页（image 供 AI 引擎与富摘要使用）
+interface Props {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  image?: string;
+  type?: 'Article' | 'NewsArticle';
+}
+const { headline, description, url, datePublished, image, type = 'Article' } = Astro.props;
+const organization = { '@id': 'https://www.jiangnantea.com/#organization' };
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': type,
+  headline,
+  description,
+  ...(datePublished ? { datePublished } : {}),
+  ...(image ? { image } : {}),
+  author: organization,
+  publisher: organization,
+  mainEntityOfPage: url,
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\u003c')} />

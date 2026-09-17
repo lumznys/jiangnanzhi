@@ -25,7 +25,7 @@ const schema={
     {'@type':'ItemList',name:'江南枝品牌资讯文章列表',numberOfItems:mergedAll.length,
     itemListElement:mergedAll.map((m,i)=>({
       '@type':'ListItem',position:i+1,name:m.entry.data.title,
-      url:`https://www.jiangnantea.com/brand-news/${m.section}/${m.entry.id}/`,
+      url:`https://www.jiangnantea.com/brand-news/${m.entry.id}/`,
     }))},
   ],
 };
@@ -95,8 +95,9 @@ const schema={
   const cache = new Map<string, Document>();
 
   const parseHref = (href: string) => {
-    const m = href.match(/\/brand-news\/(qa|news)\/([\w-]+)\//);
-    return m ? { section: m[1], id: m[2] } : null;
+    const m = href.match(/\/brand-news\/([\w-]+)\//);
+    if (!m || m[1] === 'qa' || m[1] === 'news') return null; // 排除列表页路径
+    return { id: m[1] };
   };
 
   async function openArticle(href: string, push = true) {
@@ -113,7 +114,7 @@ const schema={
     }
     const art = doc.querySelector('article');
     if (!art) { location.href = href; return; }
-    labelEl.textContent = art.querySelector('span')?.textContent ?? (info.section === 'qa' ? '常见问题' : '企业动态');
+    labelEl.textContent = art.querySelector('span')?.textContent ?? (info.id.match(/^\d+$/) ? '常见问题' : '企业动态');
     const time = art.querySelector('time');
     if (time) { timeEl.textContent = time.textContent ?? ''; timeEl.setAttribute('datetime', time.getAttribute('datetime') ?? ''); timeEl.hidden = false; }
     else timeEl.hidden = true;
@@ -121,7 +122,7 @@ const schema={
     bodyEl.innerHTML = art.querySelector('.markdown-content')?.innerHTML ?? '';
     lists.hidden = true;
     viewer.hidden = false;
-    if (push) history.pushState(null, '', `#${info.section}-${info.id}`);
+    if (push) history.pushState(null, '', `#${info.id}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -135,15 +136,15 @@ const schema={
   document.getElementById('article-back')!.addEventListener('click', () => showLists());
   document.getElementById('article-back-2')!.addEventListener('click', () => showLists());
 
-  lists.querySelectorAll<HTMLAnchorElement>('a[href*="/brand-news/qa/"], a[href*="/brand-news/news/"]').forEach(a => {
+  lists.querySelectorAll<HTMLAnchorElement>('a[href*="/brand-news/"]').forEach(a => {
     if (!parseHref(a.getAttribute('href') ?? '')) return;
     a.addEventListener('click', e => { e.preventDefault(); openArticle(a.href); });
   });
 
-  // 支持浏览器前进/后退与带 hash 的直链
+  // 支持浏览器前进/后退与带 hash 的直链（兼容旧格式 #qa-1 / #news-slug 与新格式 #1 / #slug）
   function fromHash() {
-    const m = location.hash.slice(1).match(/^(qa|news)-([\w-]+)$/);
-    if (m) openArticle(`/brand-news/${m[1]}/${m[2]}/`, false);
+    const raw = location.hash.slice(1).replace(/^(qa|news)-/, '');
+    if (raw) openArticle(`/brand-news/${raw}/`, false);
     else showLists(false);
   }
   window.addEventListener('popstate', fromHash);

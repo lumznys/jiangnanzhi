@@ -1,0 +1,26 @@
+---
+// QAPage 结构化数据组件：用于 FAQ 问答详情页（替代 Article 类型，便于 AI 引擎直接提取问答）
+interface Props {
+  question: string;
+  answer: string;
+  url: string;
+  datePublished?: string;
+}
+const { question, answer, url, datePublished } = Astro.props;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'QAPage',
+  mainEntity: {
+    '@type': 'Question',
+    name: question,
+    answerCount: 1,
+    ...(datePublished ? { datePublished } : {}),
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer,
+      url,
+    },
+  },
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\u003c')} />

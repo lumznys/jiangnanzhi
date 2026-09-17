@@ -2,16 +2,18 @@
 import { getCollection } from 'astro:content';
 import SiteLayout from '../../../layouts/SiteLayout.astro';
 import CollectionCards from '../../../components/CollectionCards.astro';
+import { mdToText } from '../../../utils/markdown';
 const entries=(await getCollection('qa')).sort((a,b)=>{
   const da=a.data.date?.getTime()??-1, db=b.data.date?.getTime()??-1;
   return db-da || ((a.data.order??9999)-(b.data.order??9999)) || a.id.localeCompare(b.id);
 });
+// 答案用完整正文（与详情页 QAPageSchema 一致），无正文时回退摘要——避免同题两处 schema 答案不一致
 const schema={
   '@context':'https://schema.org',
   '@type':'FAQPage',
   mainEntity:entries.map(entry=>({
     '@type':'Question',name:entry.data.title,
-    acceptedAnswer:{'@type':'Answer',text:entry.data.description},
+    acceptedAnswer:{'@type':'Answer',text:mdToText(entry.body??'')||entry.data.description},
   })),
 };
 const breadcrumbs={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[

@@ -1,0 +1,38 @@
+---
+// WebPage + BreadcrumbList 结构化数据组件：用于首页等静态页（帮助搜索引擎/AI 引擎理解页面主体与站点层级）
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+}
+const { title, description, url } = Astro.props;
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': url,
+      url,
+      name: title,
+      description,
+      inLanguage: 'zh-CN',
+      isPartOf: { '@id': 'https://www.jiangnantea.com/#website' },
+      about: { '@id': 'https://www.jiangnantea.com/#organization' },
+      breadcrumb: { '@id': `${url}#breadcrumb` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${url}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: '首页',
+          item: url,
+        },
+      ],
+    },
+  ],
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\u003c')} />

@@ -29,7 +29,7 @@ const breadcrumb = {
       numberOfItems: all.length,
       itemListElement: all.map((e, i) => ({
         '@type': 'ListItem', position: i + 1, name: e.data.title,
-        url: `https://www.jiangnantea.com/tea-knowledge/knowledge-article/${e.id}/`,
+        url: `https://www.jiangnantea.com/tea-knowledge/${e.id}/`,
       })),
     },
   ],
@@ -47,7 +47,7 @@ const breadcrumb = {
 <div class="space-y-12">
 {entries.map((entry, i) => {
   const dateStr = entry.data.date.toISOString().slice(0, 10);
-  const href = `/tea-knowledge/knowledge-article/${entry.id}/`;
+  const href = `/tea-knowledge/${entry.id}/`;
   return (
   <div data-reveal="" data-delay={i * 100}>
   <article class="flex flex-col md:flex-row gap-6 lg:gap-8 pb-12 border-b border-border/50 last:border-0">
@@ -120,7 +120,7 @@ const breadcrumb = {
 
   function openArticle(slug: string, push = true) {
     const tpl = document.getElementById(`ka-tpl-${slug}`) as HTMLTemplateElement | null;
-    if (!tpl) { location.href = `/tea-knowledge/knowledge-article/${slug}/`; return; }
+    if (!tpl) { location.href = `/tea-knowledge/${slug}/`; return; }
     const meta = articleMeta[slug];
     if (meta) {
       labelEl.textContent = meta.category;

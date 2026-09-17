@@ -2,6 +2,7 @@
 title: 一枝启程，初遇岩骨桂香 | 江南枝启程系列首作
 description: 江南枝启程系列首作，以日常办公品饮为定位。希望用一款品质可靠、价格友好的武夷岩茶，让更多人在忙碌的工作中，也能拥有一段属于自己的品茶时间。武夷岩茶 · 肉桂，日常品饮之选。规格：9克X24泡/盒，建议零售价：188元/两盒
 date: 2026-08-29
+image: "/images/29939ae3-9081-4d4f-872e-4f029f2b5e1a-aef32c3c.png"
 ---
 江南枝启程系列首作。江南枝 · 启程系列肉桂。规格：9克X24泡/盒，建议零售价：188元/两盒。
 ## **一枝启程，初遇岩骨桂香**
@@ -70,7 +71,7 @@ date: 2026-08-29
 使用说明（本注释不会显示在网页上）：
 1. 把本文件复制到 src/content/news/ 下，文件名用英文短横线命名（如 2026-autumn-tea-fair.md），
    文件名就是网址的一部分：
-   2026-autumn-tea-fair.md → https://www.jiangnantea.com/brand-news/news/2026-autumn-tea-fair/
+   2026-autumn-tea-fair.md → https://www.jiangnantea.com/brand-news/2026-autumn-tea-fair/
 2. date 必填（格式 YYYY-MM-DD），列表按日期倒序排列，最新的排最前。
 3. title、description 必填；description 建议控制在 60-80 个字符。
 4. 保存后推送到 GitHub，Cloudflare 自动重建，列表页、NewsArticle 结构化数据、sitemap 全部自动更新。

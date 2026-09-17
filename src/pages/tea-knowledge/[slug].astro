@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import { render } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+// 路径已从 /tea-knowledge/knowledge-article/[slug]/ 简化为 /tea-knowledge/[slug]/（旧路径见 _redirects 301）
+export async function getStaticPaths() {
+  const entries = await getCollection('knowledge');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+// 题图提取：优先取 markdown 正文中的第一张图（文章首图），无正文图时回退到 frontmatter 的 image
+const firstImageRe = /!\[[^\]]*\]\(\s*<?([^)\s>]+)>?/;
+const bodyImgMatch = entry.body?.match(firstImageRe);
+const heroImage = bodyImgMatch?.[1] ?? entry.data.image;
+// 正文渲染时移除首图，避免与题图重复显示
+const renderBody = bodyImgMatch ? entry.body!.replace(bodyImgMatch[0], '') : entry.body;
+const { Content } = await render({ ...entry, body: renderBody });
+const canonical = new URL(Astro.url.pathname, 'https://www.jiangnantea.com').href;
+const dateStr = entry.data.date.toISOString().slice(0, 10);
+// date → 完整 ISO 8601（北京时间 +08:00），供 datePublished 使用；页面显示仍用 dateStr（仅日期）
+const dateIso = `${dateStr}T00:00:00+08:00`;
+const organization = { '@id': 'https://www.jiangnantea.com/#organization' };
+const schema = {
+  '@context': 'https://schema.org', '@type': 'Article',
+  headline: entry.data.title, description: entry.data.excerpt,
+  image: heroImage ? `https://www.jiangnantea.com${heroImage}` : undefined,
+  datePublished: dateIso, author: organization, publisher: organization, mainEntityOfPage: canonical,
+};
+const breadcrumbs = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: '首页', item: 'https://www.jiangnantea.com/' },
+  { '@type': 'ListItem', position: 2, name: '茶叶科普', item: 'https://www.jiangnantea.com/tea-knowledge/' },
+  { '@type': 'ListItem', position: 3, name: entry.data.title, item: canonical },
+] };
+---
+<SiteLayout title={`${entry.data.title} — 江南枝`} description={entry.data.excerpt} schema={schema}>
+  <article class="pt-32 pb-20 bg-background"><div class="max-w-4xl mx-auto px-6 lg:px-8">
+    <a href="/tea-knowledge" class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors duration-300 mb-8">← 返回茶叶科普</a>
+    <div class="flex items-center gap-3 mb-4"><span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">{entry.data.category}</span>
+      <time class="text-sm text-muted-foreground" datetime={dateStr}>{dateStr}</time>
+    </div>
+    <h1 class="font-serif text-3xl lg:text-4xl font-bold text-foreground mb-8 leading-tight">{entry.data.title}</h1>
+    {heroImage && <img src={heroImage} alt={entry.data.title} class="w-full h-[300px] lg:h-[400px] object-cover object-top rounded-lg mb-10" loading="lazy" />}
+    <div class="markdown-content"><Content /></div>
+    <div class="mt-16 pt-8 border-t border-border/50"><div class="flex flex-wrap gap-4">
+      <a href="/tea-knowledge" class="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-secondary-foreground rounded-md">← 返回文章列表</a>
+      <a href="/contact" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-md">联系我们 →</a>
+    </div></div>
+  </div></article>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs).replace(/</g, '\u003c')} />
+</SiteLayout>
+<style>
+  /* 正文首图与题图为同一张：隐藏正文开头的第一张图避免重复显示 */
+  .markdown-content :global(> p:first-child > img:only-child),
+  .markdown-content :global(> img:first-child){display:none}
+  /* 其余正文排版（标题/列表/表格等）使用全局 site.css 的 .markdown-content 规则 */
+</style>

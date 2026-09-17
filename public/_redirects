@@ -1,26 +1,56 @@
-# 旧栏目地址 301 重定向到品牌资讯下的新地址（Cloudflare Pages _redirects）
-/qa/*        /brand-news/qa/:splat     301
-/news/*      /brand-news/news/:splat   301
-/qa          /brand-news/qa/           301
-/news        /brand-news/news/         301
+# ============================================================
+# 路径简化过渡 301（2026-09）
+# 详情页统一为一层：/brand-news/[id]/、/tea-knowledge/[slug]/
+# 旧路由源文件已归档至项目根目录 old/ 文件夹备查（不参与构建）
+# 注意：Cloudflare Pages _redirects 自上而下匹配，精确规则须放在通配规则之前
+# ============================================================
 
-# 兜底：盲猜 /sitemap.xml 的工具统一引导到标准索引
+# —— 茶叶科普：去掉 knowledge-article 层级（通用） ——
+/tea-knowledge/knowledge-article/*   /tea-knowledge/:splat   301
+
+# —— 更早的 /tea-knowledge/N 数字地址直达新文章页 ——
+/tea-knowledge/1       /tea-knowledge/yancha-yanyun/          301
+/tea-knowledge/1/      /tea-knowledge/yancha-yanyun/          301
+/tea-knowledge/2       /tea-knowledge/chunxia-qiu-cha/        301
+/tea-knowledge/2/      /tea-knowledge/chunxia-qiu-cha/        301
+/tea-knowledge/3       /tea-knowledge/pao-cha-shuiwen/        301
+/tea-knowledge/3/      /tea-knowledge/pao-cha-shuiwen/        301
+/tea-knowledge/4       /tea-knowledge/yancha-san-pinzhong/    301
+/tea-knowledge/4/      /tea-knowledge/yancha-san-pinzhong/    301
+/tea-knowledge/5       /tea-knowledge/chaye-chucun/           301
+/tea-knowledge/5/      /tea-knowledge/chaye-chucun/           301
+/tea-knowledge/6       /tea-knowledge/gaiwan-pao-cha/         301
+/tea-knowledge/6/      /tea-knowledge/gaiwan-pao-cha/         301
+
+# —— 品牌资讯详情页：qa/news 两层合并为一层 ——
+/brand-news/qa/1       /brand-news/1/                         301
+/brand-news/qa/1/      /brand-news/1/                         301
+/brand-news/qa/2       /brand-news/2/                         301
+/brand-news/qa/2/      /brand-news/2/                         301
+/brand-news/qa/3       /brand-news/3/                         301
+/brand-news/qa/3/      /brand-news/3/                         301
+/brand-news/qa/4       /brand-news/4/                         301
+/brand-news/qa/4/      /brand-news/4/                         301
+/brand-news/qa/5       /brand-news/5/                         301
+/brand-news/qa/5/      /brand-news/5/                         301
+/brand-news/qa/6       /brand-news/2026-spring-tea-expo/      301
+/brand-news/qa/6/      /brand-news/2026-spring-tea-expo/      301
+/brand-news/news/2026-spring-tea-expo        /brand-news/2026-spring-tea-expo/      301
+/brand-news/news/2026-spring-tea-expo/       /brand-news/2026-spring-tea-expo/      301
+/brand-news/news/20260829-qichengtea-push       /brand-news/20260829-qichengtea-push/    301
+/brand-news/news/20260829-qichengtea-push/      /brand-news/20260829-qichengtea-push/    301
+
+# —— 最早期地址（/qa、/news 开头）：精确优先，通配兜底 ——
+/qa/6        /brand-news/2026-spring-tea-expo/      301
+/qa/6/       /brand-news/2026-spring-tea-expo/      301
+/qa/*        /brand-news/:splat                     301
+/news/*      /brand-news/:splat                     301
+/qa          /brand-news/qa/                        301
+/news        /brand-news/news/                      301
+
+# —— 兜底：盲猜 /sitemap.xml 的工具统一引导到标准索引 ——
 /sitemap.xml /sitemap-index.xml        301
 
-# 旧茶叶科普文章地址 301 到新的 knowledge-article 目录
-/tea-knowledge/1       /tea-knowledge/knowledge-article/yancha-yanyun/          301
-/tea-knowledge/1/      /tea-knowledge/knowledge-article/yancha-yanyun/          301
-/tea-knowledge/2       /tea-knowledge/knowledge-article/chunxia-qiu-cha/        301
-/tea-knowledge/2/      /tea-knowledge/knowledge-article/chunxia-qiu-cha/        301
-/tea-knowledge/3       /tea-knowledge/knowledge-article/pao-cha-shuiwen/        301
-/tea-knowledge/3/      /tea-knowledge/knowledge-article/pao-cha-shuiwen/        301
-/tea-knowledge/4       /tea-knowledge/knowledge-article/yancha-san-pinzhong/    301
-/tea-knowledge/4/      /tea-knowledge/knowledge-article/yancha-san-pinzhong/    301
-/tea-knowledge/5       /tea-knowledge/knowledge-article/chaye-chucun/           301
-/tea-knowledge/5/      /tea-knowledge/knowledge-article/chaye-chucun/           301
-/tea-knowledge/6       /tea-knowledge/knowledge-article/gaiwan-pao-cha/         301
-/tea-knowledge/6/      /tea-knowledge/knowledge-article/gaiwan-pao-cha/         301
-
-# 百度站长验证：Cloudflare Pages 会把 .html 308 到无后缀地址，导致百度验证失败，
-# 用 200 重写让带 .html 的原地址直接返回内容
+# —— 百度站长验证：Cloudflare Pages 会把 .html 308 到无后缀地址，导致百度验证失败，
+# 用 200 重写让带 .html 的原地址直接返回内容 ——
 /baidu_verify_codeva-aSWWJupbX8.html   /baidu_verify_codeva-aSWWJupbX8   200

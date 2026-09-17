@@ -1,37 +1,42 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import SiteLayout from './SiteLayout.astro';
-interface Props { entry: CollectionEntry<'qa'> | CollectionEntry<'news'>; legacy?: boolean; }
-const {entry,legacy=false}=Astro.props;
+import QAPageSchema from '../components/QAPageSchema.astro';
+import ArticleSchema from '../components/ArticleSchema.astro';
+import { mdToText } from '../utils/markdown';
+interface Props { entry: CollectionEntry<'qa'> | CollectionEntry<'news'>; }
+const {entry}=Astro.props;
 const {Content}=await render(entry);
 const news=entry.collection==='news';
+const isQa=entry.collection==='qa';
 const label=news?'企业动态':'常见问题';
 const section=news?'news':'qa';
 const canonical=new URL(Astro.url.pathname,'https://www.jiangnantea.com').href;
-const canonicalOverride=legacy?'https://www.jiangnantea.com/brand-news/news/2026-spring-tea-expo/':undefined;
-const organization={'@id':'https://www.jiangnantea.com/#organization'};
-const description=legacy?`原问答栏目企业动态：${entry.data.description}`:entry.data.description;
-const schema={
-  '@context':'https://schema.org','@type':news?'NewsArticle':'Article',
-  headline:entry.data.title,description,datePublished:entry.data.date?.toISOString(),
-  author:organization,publisher:organization,mainEntityOfPage:canonicalOverride??canonical,
-};
+const description=entry.data.description;
+// date → 完整 ISO 8601（北京时间 +08:00）：frontmatter 仅日期时输出如 2026-08-15T00:00:00+08:00
+const isoCST=(d?:Date)=>d?`${d.toISOString().slice(0,19)}+08:00`:undefined;
+const dateIso=isoCST(entry.data.date);
+// 封面图：优先 frontmatter image，回退正文第一张图（仅用于结构化数据，不改变页面显示）
+const bodyImg=entry.body?.match(/!\[[^\]]*\]\(\s*<?([^)\s>]+)>?/)?.[1];
+const coverSrc=entry.collection==='news'?(entry.data.image??bodyImg):undefined;
+const cover=coverSrc?`https://www.jiangnantea.com${coverSrc}`:undefined;
 const breadcrumbs={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[
   {'@type':'ListItem',position:1,name:'首页',item:'https://www.jiangnantea.com/'},
   {'@type':'ListItem',position:2,name:'品牌资讯',item:'https://www.jiangnantea.com/brand-news/'},
   {'@type':'ListItem',position:3,name:label,item:`https://www.jiangnantea.com/brand-news/${section}/`},
   {'@type':'ListItem',position:4,name:entry.data.title,item:canonical},
 ]};
-const title=legacy?`${entry.data.title}（原栏目存档） — 江南枝`:`${entry.data.title} — 江南枝`;
+const title=`${entry.data.title} — 江南枝`;
 ---
-<SiteLayout title={title} description={description} schema={schema} noindex={legacy} canonicalOverride={canonicalOverride}>
+<SiteLayout title={title} description={description}>
+  {isQa && <QAPageSchema slot="head" question={entry.data.title} answer={mdToText(entry.body ?? '')} url={canonical} datePublished={dateIso} />}
+  {!isQa && <ArticleSchema slot="head" type="NewsArticle" headline={entry.data.title} description={description} url={canonical} datePublished={dateIso} image={cover} />}
   <article class="pt-32 pb-20 bg-background"><div class="max-w-4xl mx-auto px-6 lg:px-8">
     <a href={`/brand-news/${section}/`} class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors duration-300 mb-8">← 返回{label}</a>
     <div class="flex items-center gap-3 mb-4"><span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs rounded-full bg-primary/10 text-primary">{label}</span>
       {entry.data.date && <time class="text-sm text-muted-foreground" datetime={entry.data.date.toISOString().slice(0,10)}>{entry.data.date.toISOString().slice(0,10)}</time>}
     </div>
     <h1 class="font-serif text-3xl lg:text-4xl font-bold text-foreground mb-10 leading-tight">{entry.data.title}</h1>
-    {legacy && <p class="text-muted-foreground mb-6">本文已归入企业动态，<a class="text-primary underline" href={`/brand-news/news/${entry.id}/`}>查看企业动态中的文章</a>。</p>}
     <div class="markdown-content"><Content /></div>
     <div class="mt-16 pt-8 border-t border-border/50"><div class="flex flex-wrap gap-4">
       <a href={`/brand-news/${section}/`} class="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-secondary-foreground rounded-md">← 返回{label}列表</a>

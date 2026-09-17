@@ -1,0 +1,16 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import CollectionArticle from '../../layouts/CollectionArticle.astro';
+// 链路简化：常见问题（数字 id）与企业动态（日期 slug）详情页合并到一层 /brand-news/[id]/
+// 旧地址 /brand-news/qa/*、/brand-news/news/* 由 public/_redirects 301 过渡
+export async function getStaticPaths() {
+  const [qa, news] = await Promise.all([getCollection('qa'), getCollection('news')]);
+  return [
+    ...news.map(entry => ({ params: { id: entry.id }, props: { entry } })),
+    ...qa.map(entry => ({ params: { id: entry.id }, props: { entry } })),
+  ];
+}
+const { entry } = Astro.props;
+if (!entry) throw new Error(`Missing collection entry for /brand-news/${Astro.params.id}/`);
+---
+<CollectionArticle entry={entry} />
